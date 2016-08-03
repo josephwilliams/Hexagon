@@ -1,0 +1,49 @@
+body {
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(circle, #00ffb1, #8ef3e9, #764f77); /* Safari */
+  background: -o-radial-gradient(circle, #00ffb1, #8ef3e9, #764f77); /* Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(circle, #00ffb1, #8ef3e9, #764f77); /* Firefox 3.6 to 15 */
+  background: radial-gradient(circle, #00ffb1, #8ef3e9, #764f77);
+}
+
+.content {
+  margin-top: 50px;
+}
+
+.board-container {
+background: rgba(255, 255, 255, 0.6);
+  padding: 50px;
+  margin: 0 auto;
+  border: 1px solid grey;
+  width: 550px;
+  height: 550px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tile-container {
+  border: 1px solid #5f4545;
+  border-radius: 22px;
+  margin: 3px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.open-tile {
+  /*background: lightgrey;
+  border: 1px solid #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;*/
+}
+
+.null-tile {
+  background: black;
+  border: 1px solid #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+}

@@ -1,0 +1,82 @@
+/* GEM */
+@gemcolor: #00DBB9;
+
+@top:lighten(@gemcolor,35%);
+@right:lighten(@gemcolor,2%);
+@bottom:darken(@gemcolor,15%);
+@left:darken(@gemcolor,2%);
+
+.gem {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top:0;
+  border-radius: 2px;
+  background-color: #00DBB9;
+  border-top: 7px solid #35f4d6;
+  border-right: 7px solid #00DBB9;
+  border-bottom: 7px solid #289f8d;
+  border-left: 7px solid #289f8d;
+  transition: all .5s ease;
+  animation: rotate 5s infinite linear;
+  animation-play-state:paused;
+}
+.shadow {
+  position: absolute;
+  top:0;left:0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,122,255,.5);
+  z-index:-1;
+  filter: blur(20px);
+  transition: filter 1s ease;
+}
+
+.container:hover{
+  .gem{
+    //top:-5px;
+    animation-play-state: running;
+  }
+  .shadow{
+    filter:blur(40px);
+    background-color: rgba(0,122,255,.7);
+  }
+}
+
+@keyframes rotate{
+  0%{
+    transform: rotate(0deg);
+    border-top-color: lighten(@gemcolor,10%);
+    border-right-color: @gemcolor;
+    border-bottom-color: darken(@gemcolor,12%);
+    border-left-color: darken(@gemcolor,5%);
+  }
+  25%{
+    border-top-color: @right;
+    border-right-color: @bottom;
+    border-bottom-color: @left;
+    border-left-color: @top;
+    transform: rotate(90deg);
+  }
+  50%{
+    border-top-color: @bottom;
+    border-right-color: @left;
+    border-bottom-color: @top;
+    border-left-color: @right;
+    transform: rotate(180deg);
+  }
+  75%{
+    border-top-color: @left;
+    border-right-color: @top;
+    border-bottom-color: @right;
+    border-left-color: @bottom;
+    transform: rotate(270deg);
+  }
+  100%{
+    transform: rotate(360deg);
+    border-top-color: lighten(@gemcolor,10%);
+    border-right-color: @gemcolor;
+    border-bottom-color: darken(@gemcolor,12%);
+    border-left-color: darken(@gemcolor,5%);
+  }
+}
