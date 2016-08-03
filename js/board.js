@@ -6,14 +6,14 @@ class Board {
 
   populate() {
     this.grid = [
-                 [false, false, false, null, null, false, false, false],
+                 ["red", false, false, null, null, false, false, "blue"],
                  [false, false, false, false, false, false, false, false],
                  [false, false, null, false, false, null, false, false],
                  [false, null, false, false, false, false, null, false],
                  [false, null, false, false, false, false, null, false],
                  [false, false, null, false, false, null, false, false],
                  [false, false, false, false, false, false, false, false],
-                 [false, false, false, null, null, false, false, false]
+                 ["blue", false, false, null, null, false, false, "red"]
                ];
   }
 

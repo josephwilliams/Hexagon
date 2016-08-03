@@ -3,25 +3,28 @@ import React from 'react';
 class Tile extends React.Component {
   render () {
     var tileState;
-    var gemDisplay = "none";
+    var gemClass;
     if (this.props.tileState === null){
       tileState = 'null-tile';
-      gemDisplay = "none";
+      gemClass = "no-gem";
     } else if (this.props.tileState === false){
       tileState = 'open-tile';
-      gemDisplay = "none";
+      gemClass = "no-gem";
     } else if (this.props.tileState === "red"){
       tileState = "red-tile";
-      gemDisplay = "block";
+      gemClass = "gem-red";
     } else if (this.props.tileState === "blue"){
       tileState = "blue-tile";
-      gemDisplay = "block";
+      gemClass = "gem-blue";
+    } else if (this.props.tileState === "open"){
+      tileState = "glow-tile";
+      gemClass = "no-gem"
     }
 
     return(
       <div className="tile-container">
         <div className={tileState}>
-          <div className="gem" style={{display: gemDisplay}}>
+          <div className={gemClass}>
             <div className="shadow"></div>
           </div>
         </div>

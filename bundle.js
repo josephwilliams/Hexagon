@@ -21556,7 +21556,7 @@
 	  _createClass(Board, [{
 	    key: "populate",
 	    value: function populate() {
-	      this.grid = [[false, false, false, null, null, false, false, false], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [false, false, false, null, null, false, false, false]];
+	      this.grid = [["red", false, false, null, null, false, false, "blue"], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], ["blue", false, false, null, null, false, false, "red"]];
 	    }
 	  }, {
 	    key: "isOver",
@@ -21691,19 +21691,22 @@
 	    key: 'render',
 	    value: function render() {
 	      var tileState;
-	      var gemDisplay = "none";
+	      var gemClass;
 	      if (this.props.tileState === null) {
 	        tileState = 'null-tile';
-	        gemDisplay = "none";
+	        gemClass = "no-gem";
 	      } else if (this.props.tileState === false) {
 	        tileState = 'open-tile';
-	        gemDisplay = "none";
+	        gemClass = "no-gem";
 	      } else if (this.props.tileState === "red") {
 	        tileState = "red-tile";
-	        gemDisplay = "block";
+	        gemClass = "gem-red";
 	      } else if (this.props.tileState === "blue") {
 	        tileState = "blue-tile";
-	        gemDisplay = "block";
+	        gemClass = "gem-blue";
+	      } else if (this.props.tileState === "open") {
+	        tileState = "glow-tile";
+	        gemClass = "no-gem";
 	      }
 	
 	      return _react2.default.createElement(
@@ -21714,7 +21717,7 @@
 	          { className: tileState },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'gem', style: { display: gemDisplay } },
+	            { className: gemClass },
 	            _react2.default.createElement('div', { className: 'shadow' })
 	          )
 	        )
