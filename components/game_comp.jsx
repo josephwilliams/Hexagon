@@ -1,21 +1,22 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Board from '../js/board';
 import BoardComponent from './board_comp';
 
-export default class Game extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { board: new Board };
-    console.log(this);
-  }
+var Game = React.createClass ({
+  getInitialState: function () {
+    return ({ board: new Board });
+  },
 
-  updateBoard (coords) {
-    console.log('working')
-    console.log(this.state.board)
+  updateBoard: function (coords) {
     var board = this.state.board;
-  }
+    var y = coords[0];
+    var x = coords[1];
+    board.persistGame(coords);
 
-  render () {
+    this.setState({ board: board });
+  },
+
+  render: function () {
     return (
       <div className="game-container">
         <BoardComponent
@@ -25,4 +26,6 @@ export default class Game extends React.Component {
       </div>
     )
   }
-}
+});
+
+module.exports = Game;

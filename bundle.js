@@ -21480,12 +21480,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -21500,50 +21494,35 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var Game = _react2.default.createClass({
+	  displayName: 'Game',
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	  getInitialState: function getInitialState() {
+	    return { board: new _board2.default() };
+	  },
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	  updateBoard: function updateBoard(coords) {
+	    var board = this.state.board;
+	    var y = coords[0];
+	    var x = coords[1];
+	    board.persistGame(coords);
 	
-	var Game = function (_React$Component) {
-	  _inherits(Game, _React$Component);
+	    this.setState({ board: board });
+	  },
 	
-	  function Game(props) {
-	    _classCallCheck(this, Game);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Game).call(this, props));
-	
-	    _this.state = { board: new _board2.default() };
-	    console.log(_this);
-	    return _this;
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'game-container' },
+	      _react2.default.createElement(_board_comp2.default, {
+	        board: this.state.board,
+	        updateBoard: this.updateBoard
+	      })
+	    );
 	  }
+	});
 	
-	  _createClass(Game, [{
-	    key: 'updateBoard',
-	    value: function updateBoard(coords) {
-	      console.log('working');
-	      console.log(this.state.board);
-	      var board = this.state.board;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'game-container' },
-	        _react2.default.createElement(_board_comp2.default, {
-	          board: this.state.board,
-	          updateBoard: this.updateBoard
-	        })
-	      );
-	    }
-	  }]);
-	
-	  return Game;
-	}(_react2.default.Component);
-	
-	exports.default = Game;
+	module.exports = Game;
 
 /***/ },
 /* 176 */
@@ -21578,9 +21557,10 @@
 	    this.player2 = new _player2.default();
 	    this.currentPlayer = this.player1;
 	    this.currentMove = 1;
-	    this.firstMove = null;
+	    this.firstSelect = null;
 	    this.gameState = true;
 	    this.winner = null;
+	    this.message = "";
 	
 	    this.populateGrid();
 	  }
@@ -21598,11 +21578,17 @@
 	      var y = coords[0];
 	      this.grid[y][x] = value;
 	    }
+	
+	    // gameState determined by #isOver
+	    // #considerMove considers move count (1st or 2nd);
+	    // if this.firstSelect is good; if move choice is good;
+	    // calls #updateGrid if so;
+	
 	  }, {
-	    key: 'startGame',
-	    value: function startGame() {
+	    key: 'persistGame',
+	    value: function persistGame(coords) {
 	      if (this.gameState) {
-	        considerMove(coords);
+	        this.considerMove(coords);
 	      }
 	    }
 	  }, {
@@ -21616,7 +21602,7 @@
 	        if (this.grid[y][x] != 2) return false;
 	      }
 	
-	      this.firstMove = [y, x];
+	      this.firstSelect = [y, x];
 	      return true;
 	    }
 	  }, {
@@ -21625,7 +21611,7 @@
 	      var x = coords[1];
 	      var y = coords[0];
 	      if (this.grid[y][x] !== false) return false;
-	      if (logicalSecondSelect(coords)) {
+	      if (this.logicalSecondSelect(coords)) {
 	        return true;
 	      } else {
 	        return false;
@@ -21634,8 +21620,8 @@
 	  }, {
 	    key: 'logicalSecondSelect',
 	    value: function logicalSecondSelect(coords) {
-	      var y1 = this.firstMove[0];
-	      var x1 = this.firstMove[1];
+	      var y1 = this.firstSelect[0];
+	      var x1 = this.firstSelect[1];
 	      var y2 = coords[0];
 	      var x2 = coords[1];
 	
@@ -21649,35 +21635,36 @@
 	    key: 'considerMove',
 	    value: function considerMove(coords) {
 	      if (this.currentMove === 1) {
-	        if (goodFirstSelect(coords)) {
-	          updateGrid(coords);
+	        if (this.goodFirstSelect(coords)) {
+	          this.updateGrid(coords);
 	        } else {
-	          restartTurn();
+	          this.restartTurn();
 	        }
 	
 	        this.currentMove++;
 	      } else {
-	        if (goodSecondSelect(coords)) {
-	          updateGrid(coords);
+	        if (this.goodSecondSelect(coords)) {
+	          this.updateGrid(coords);
 	        } else {
-	          restartTurn();
+	          this.restartTurn();
 	        }
 	
 	        this.currentMove--;
 	      }
 	
 	      if (!this.isOver) {
-	        switchPlayers();
+	        this.switchPlayers();
 	      } else {
-	        endGame();
+	        this.endGame();
 	      }
 	    }
 	  }, {
 	    key: 'restartTurn',
 	    value: function restartTurn() {
-	      this.firstMove = null;
+	      this.firstSelect = null;
 	      this.currentMove = 1;
-	      considerMove(coords);
+	      this.message = "invalid move.";
+	      console.log(this.message);
 	    }
 	  }, {
 	    key: 'switchPlayers',

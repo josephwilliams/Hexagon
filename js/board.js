@@ -2,20 +2,21 @@ import Player from './player';
 import GridShapes from './grid_shapes';
 
 class Board {
-  constructor(){
+  constructor () {
     this.grid = [];
     this.player1 = new Player;
     this.player2 = new Player;
     this.currentPlayer = this.player1;
     this.currentMove = 1;
-    this.firstMove = null;
+    this.firstSelect = null;
     this.gameState = true;
     this.winner = null;
+    this.message = "";
 
     this.populateGrid();
   }
 
-  populateGrid() {
+  populateGrid () {
     var gridKey = Math.floor(Math.random() * (4 - 1)) + 1;
     this.grid = GridShapes[gridKey];
   }
@@ -26,9 +27,13 @@ class Board {
     this.grid[y][x] = value;
   }
 
-  startGame () {
+  // gameState determined by #isOver
+  // #considerMove considers move count (1st or 2nd);
+  // if this.firstSelect is good; if move choice is good;
+  // calls #updateGrid if so;
+  persistGame (coords) {
     if (this.gameState){
-      considerMove(coords);
+      this.considerMove(coords);
     }
   }
 
@@ -43,7 +48,7 @@ class Board {
         return false;
     }
 
-    this.firstMove = [y, x];
+    this.firstSelect = [y, x];
     return true;
   }
 
@@ -52,7 +57,7 @@ class Board {
     var y = coords[0];
     if(this.grid[y][x] !== false)
       return false;
-    if (logicalSecondSelect(coords)){
+    if (this.logicalSecondSelect(coords)){
       return true;
     } else {
       return false;
@@ -60,8 +65,8 @@ class Board {
   }
 
   logicalSecondSelect (coords) {
-    var y1 = this.firstMove[0];
-    var x1 = this.firstMove[1];
+    var y1 = this.firstSelect[0];
+    var x1 = this.firstSelect[1];
     var y2 = coords[0];
     var x2 = coords[1];
 
@@ -74,34 +79,35 @@ class Board {
 
   considerMove (coords) {
     if (this.currentMove === 1){
-      if (goodFirstSelect(coords)){
-        updateGrid(coords);
+      if (this.goodFirstSelect(coords)){
+        this.updateGrid(coords);
       } else {
-        restartTurn();
+        this.restartTurn();
       }
 
       this.currentMove ++;
     } else {
-      if (goodSecondSelect(coords)){
-        updateGrid(coords);
+      if (this.goodSecondSelect(coords)){
+        this.updateGrid(coords);
       } else {
-        restartTurn();
+        this.restartTurn();
       }
 
       this.currentMove --;
     }
 
     if (!this.isOver){
-      switchPlayers();
+      this.switchPlayers();
     } else {
-      endGame();
+      this.endGame();
     }
   }
 
   restartTurn () {
-    this.firstMove = null;
+    this.firstSelect = null;
     this.currentMove = 1;
-    considerMove(coords);
+    this.message = "invalid move.";
+    console.log(this.message);
   }
 
   switchPlayers () {
