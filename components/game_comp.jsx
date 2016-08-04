@@ -11,7 +11,7 @@ var Game = React.createClass ({
     var board = this.state.board;
     var y = coords[0];
     var x = coords[1];
-    board.persistGame(coords);
+    board.considerMove(coords);
 
     this.setState({ board: board });
   },

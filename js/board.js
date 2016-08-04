@@ -17,6 +17,7 @@ class Board {
   }
 
   populateGrid () {
+    // randomly selects number between 1-3
     var gridKey = Math.floor(Math.random() * (4 - 1)) + 1;
     this.grid = GridShapes[gridKey];
   }
@@ -25,16 +26,6 @@ class Board {
     let x = coords[1];
     let y = coords[0];
     this.grid[y][x] = value;
-  }
-
-  // gameState determined by #isOver
-  // #considerMove considers move count (1st or 2nd);
-  // if this.firstSelect is good; if move choice is good;
-  // calls #updateGrid if so;
-  persistGame (coords) {
-    if (this.gameState){
-      this.considerMove(coords);
-    }
   }
 
   goodFirstSelect (coords) {
@@ -77,19 +68,31 @@ class Board {
     }
   }
 
+  // #considerMove considers move count (1st or 2nd);
+  // if this.firstSelect is good; if 2nd select is good;
+  // calls #updateGrid if so;
+  // gameState determined by #isOver
   considerMove (coords) {
     if (this.currentMove === 1){
       if (this.goodFirstSelect(coords)){
+        this.message = "good click.";
+        console.log(this.message);
         this.updateGrid(coords);
       } else {
+        this.message = "invalid first selection.";
+        console.log(this.message);
         this.restartTurn();
       }
 
       this.currentMove ++;
     } else {
       if (this.goodSecondSelect(coords)){
+        this.message = "valid move!";
+        console.log(this.message);
         this.updateGrid(coords);
       } else {
+        this.message = "invalid move selection.";
+        console.log(this.message);
         this.restartTurn();
       }
 
@@ -106,12 +109,13 @@ class Board {
   restartTurn () {
     this.firstSelect = null;
     this.currentMove = 1;
-    this.message = "invalid move.";
+    this.message = "restart turn.";
     console.log(this.message);
   }
 
   switchPlayers () {
     this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
+    console.log("turn:" + this.currentPlayer.toString());
   }
 
   isOver() {
@@ -125,6 +129,8 @@ class Board {
   }
 
   endGame () {
+    this.message = "game over!";
+    console.log(this.message + "winner is:" + this.currentPlayer.toString());
     this.winner = this.currentPlayer;
     this.gameState = false;
   }
