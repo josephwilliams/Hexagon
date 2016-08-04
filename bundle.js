@@ -21533,15 +21533,21 @@
 
 /***/ },
 /* 176 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _player = __webpack_require__(179);
+	
+	var _player2 = _interopRequireDefault(_player);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -21550,16 +21556,97 @@
 	    _classCallCheck(this, Board);
 	
 	    this.grid = [];
-	    this.populate();
+	    this.player1 = new _player2.default();
+	    this.player2 = new _player2.default();
+	    this.currentPlayer = this.player1;
+	    this.currentMove = 1;
+	    this.firstMove = null;
+	
+	    this.populateGrid();
 	  }
 	
 	  _createClass(Board, [{
-	    key: "populate",
-	    value: function populate() {
-	      this.grid = [["red", false, false, null, null, false, false, "blue"], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], ["blue", false, false, null, null, false, false, "red"]];
+	    key: 'populateGrid',
+	    value: function populateGrid() {
+	      this.grid = [[1, false, false, null, null, false, false, 2], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [2, false, false, null, null, false, false, 1]];
 	    }
 	  }, {
-	    key: "isOver",
+	    key: 'updateGrid',
+	    value: function updateGrid(coords, value) {
+	      var x = coords[1];
+	      var y = coords[0];
+	      this.grid[y][x] = value;
+	    }
+	  }, {
+	    key: 'goodFirstSelect',
+	    value: function goodFirstSelect(coords) {
+	      var x = coords[1];
+	      var y = coords[0];
+	      if (this.currentPlayer === 1) {
+	        if (this.grid[y][x] != 1) return false;
+	      } else {
+	        if (this.grid[y][x] != 2) return false;
+	      }
+	
+	      this.firstMove = [y, x];
+	      return true;
+	    }
+	  }, {
+	    key: 'goodSecondSelect',
+	    value: function goodSecondSelect(coords) {
+	      var x = coords[1];
+	      var y = coords[0];
+	      if (this.grid[y][x] !== false) return false;
+	      if (logicalSecondSelect(coords)) {
+	        return true;
+	      } else {
+	        return false;
+	      }
+	    }
+	  }, {
+	    key: 'logicalSecondSelect',
+	    value: function logicalSecondSelect(coords) {
+	      var y1 = this.firstMove[0];
+	      var x1 = this.firstMove[1];
+	      var y2 = coords[0];
+	      var x2 = coords[1];
+	
+	      if (between(x1, x2 + 2, x2 - 2) && between(y1, y2 + 2, y2 - 2)) {
+	        return true;
+	      } else {
+	        return false;
+	      }
+	    }
+	  }, {
+	    key: 'considerMove',
+	    value: function considerMove(coords) {
+	      if (this.currentMove === 1) {
+	        if (goodFirstSelect(coords)) {
+	          updateGrid(coords);
+	        } else {
+	          restartTurn();
+	        }
+	
+	        this.currentMove++;
+	      } else {
+	
+	        this.currentMove--;
+	        switchPlayers();
+	      }
+	    }
+	  }, {
+	    key: 'restartTurn',
+	    value: function restartTurn() {
+	      this.firstMove = null;
+	      this.currentMove = 1;
+	    }
+	  }, {
+	    key: 'switchPlayer',
+	    value: function switchPlayer() {
+	      this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
+	    }
+	  }, {
+	    key: 'isOver',
 	    value: function isOver() {
 	      this.grid.forEach(function (arr) {
 	        arr.forEach(function (el) {
@@ -21622,15 +21709,23 @@
 	  _createClass(Board, [{
 	    key: 'showBoard',
 	    value: function showBoard() {
-	      var boardTiles = [];
-	      var board = this.state.board.grid;
+	      var _this2 = this;
 	
-	      for (var i = 0; i < board.length; i++) {
-	        for (var j = 0; j < board[i].length; j++) {
-	          var tileState = board[i][j];
+	      var boardTiles = [];
+	      var grid = this.state.board.grid;
+	      var board = this.state.board;
+	
+	      for (var i = 0; i < grid.length; i++) {
+	        for (var j = 0; j < grid[i].length; j++) {
+	          var tileState = grid[i][j];
 	          boardTiles.push(_react2.default.createElement(_tile_comp2.default, {
 	            position: [i, j],
 	            tileState: tileState,
+	            currentPlayer: board.currentPlayer,
+	            open: false,
+	            onClick: function onClick() {
+	              return _this2.considerMove([i, j]);
+	            },
 	            key: [i, j]
 	          }));
 	        }
@@ -21698,10 +21793,10 @@
 	      } else if (this.props.tileState === false) {
 	        tileState = 'open-tile';
 	        gemClass = "no-gem";
-	      } else if (this.props.tileState === "red") {
+	      } else if (this.props.tileState === 1) {
 	        tileState = "red-tile";
 	        gemClass = "gem-red";
-	      } else if (this.props.tileState === "blue") {
+	      } else if (this.props.tileState === 2) {
 	        tileState = "blue-tile";
 	        gemClass = "gem-blue";
 	      } else if (this.props.tileState === "open") {
@@ -21729,6 +21824,24 @@
 	}(_react2.default.Component);
 	
 	exports.default = Tile;
+
+/***/ },
+/* 179 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Player = function Player() {
+	  _classCallCheck(this, Player);
+	};
+	
+	exports.default = Player;
 
 /***/ }
 /******/ ]);

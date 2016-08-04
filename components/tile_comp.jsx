@@ -10,10 +10,10 @@ class Tile extends React.Component {
     } else if (this.props.tileState === false){
       tileState = 'open-tile';
       gemClass = "no-gem";
-    } else if (this.props.tileState === "red"){
+    } else if (this.props.tileState === 1){
       tileState = "red-tile";
       gemClass = "gem-red";
-    } else if (this.props.tileState === "blue"){
+    } else if (this.props.tileState === 2){
       tileState = "blue-tile";
       gemClass = "gem-blue";
     } else if (this.props.tileState === "open"){

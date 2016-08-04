@@ -21,6 +21,7 @@ class Board extends React.Component {
             position={[i, j]}
             tileState={tileState}
             currentPlayer={board.currentPlayer}
+            open={false}
             onClick={() => this.considerMove([i, j])}
             key={[i, j]}
           />
