@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Board from '../js/board';
 import BoardComponent from './board_comp';
 
-export class Game extends React.Component {
+class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = { board: new Board };
@@ -25,3 +25,5 @@ export class Game extends React.Component {
     )
   }
 }
+
+export default Game;

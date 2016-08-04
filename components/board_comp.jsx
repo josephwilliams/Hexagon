@@ -1,11 +1,7 @@
 import React from 'react';
 import Tile from './tile_comp';
 
-export class Board extends React.Component {
-  constructor(props){
-    super(props);
-  }
-
+class Board extends React.Component {
   showBoard () {
     const boardTiles = [];
     const grid = this.props.board.grid;
@@ -38,3 +34,5 @@ export class Board extends React.Component {
     )
   }
 }
+
+export default Board;

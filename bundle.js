@@ -21483,7 +21483,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Game = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -21507,7 +21506,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Game = exports.Game = function (_React$Component) {
+	var Game = function (_React$Component) {
 	  _inherits(Game, _React$Component);
 	
 	  function Game(props) {
@@ -21542,6 +21541,8 @@
 	
 	  return Game;
 	}(_react2.default.Component);
+	
+	exports.default = Game;
 
 /***/ },
 /* 176 */
@@ -21749,7 +21750,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Board = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -21769,13 +21769,13 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Board = exports.Board = function (_React$Component) {
+	var Board = function (_React$Component) {
 	  _inherits(Board, _React$Component);
 	
-	  function Board(props) {
+	  function Board() {
 	    _classCallCheck(this, Board);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Board).call(this, props));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Board).apply(this, arguments));
 	  }
 	
 	  _createClass(Board, [{
@@ -21818,6 +21818,8 @@
 	
 	  return Board;
 	}(_react2.default.Component);
+	
+	exports.default = Board;
 
 /***/ },
 /* 180 */
@@ -21828,7 +21830,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Tile = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -21844,7 +21845,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Tile = exports.Tile = function (_React$Component) {
+	var Tile = function (_React$Component) {
 	  _inherits(Tile, _React$Component);
 	
 	  function Tile(props) {
@@ -21906,6 +21907,8 @@
 	
 	  return Tile;
 	}(_react2.default.Component);
+	
+	exports.default = Tile;
 
 /***/ }
 /******/ ]);
