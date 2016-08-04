@@ -21505,7 +21505,11 @@
 	    var board = this.state.board;
 	    var y = coords[0];
 	    var x = coords[1];
-	    board.considerMove(coords);
+	
+	    if (!board.isOver()) {
+	
+	      board.considerMove(coords);
+	    }
 	
 	    this.setState({ board: board });
 	  },
@@ -21573,17 +21577,74 @@
 	      this.grid = _grid_shapes2.default[gridKey];
 	    }
 	  }, {
+	    key: 'persistGame',
+	    value: function persistGame() {
+	      if (!this.isOver()) {
+	        console.log("game persists!");
+	        this.switchPlayers();
+	      } else {
+	        this.endGame();
+	      }
+	    }
+	
+	    // #considerMove considers this.currentMove (1 or 2);
+	    // if #goodfirstSelect calls #updateGridFirstSelect;
+	    // if #goodSecondSelect via #logicalSecondSelect
+	    // calls #updateGridSecondSelect; #resolveBoard; then #switchPlayers;
+	    // this.gameState determined by #isOver;
+	    // #endGame otherwise;
+	
+	  }, {
+	    key: 'considerMove',
+	    value: function considerMove(coords) {
+	      console.log("current player:" + this.currentPlayer.num);
+	      console.log("current move:" + this.currentMove);
+	
+	      if (this.currentMove === 1) {
+	        if (this.goodFirstSelect(coords)) {
+	          this.message = "good click.";
+	          console.log(this.message);
+	          this.currentMove = 2;
+	          return this.updateGridFirstSelect(coords);
+	        } else {
+	          this.message = "invalid first selection.";
+	          console.log(this.message);
+	          return this.restartTurn();
+	        }
+	      } else {
+	        if (this.goodSecondSelect(coords)) {
+	          this.message = "valid move!";
+	          console.log(this.message);
+	          this.currentMove = 1;
+	          return this.updateGridSecondSelect(coords);
+	        } else {
+	          this.message = "invalid second selection.";
+	          console.log(this.message);
+	          return this.restartTurn();
+	        }
+	      }
+	    }
+	  }, {
 	    key: 'updateGridFirstSelect',
 	    value: function updateGridFirstSelect(coords) {
 	      var x = coords[1];
 	      var y = coords[0];
-	      this.grid[y][x] = value;
+	
+	      // make available spaces glow
 	    }
 	  }, {
 	    key: 'updateGridSecondSelect',
 	    value: function updateGridSecondSelect(coords) {
 	      var x = coords[1];
 	      var y = coords[0];
+	
+	      this.grid[y][x] = this.currentPlayer.num;
+	      this.persistGame();
+	    }
+	  }, {
+	    key: 'resolveBoard',
+	    value: function resolveBoard() {
+	      // undo the glowing open spaces after move is made
 	    }
 	  }, {
 	    key: 'goodFirstSelect',
@@ -21591,9 +21652,9 @@
 	      var x = coords[1];
 	      var y = coords[0];
 	      if (this.currentPlayer === 1) {
-	        if (this.grid[y][x] != 1) return false;
-	      } else {
-	        if (this.grid[y][x] != 2) return false;
+	        if (this.grid[y][x] !== 1) return false;
+	      } else if (this.grid[y][x] !== 2) {
+	        return false;
 	      }
 	
 	      this.firstSelect = [y, x];
@@ -21605,6 +21666,7 @@
 	      var x = coords[1];
 	      var y = coords[0];
 	      if (this.grid[y][x] !== false) return false;
+	
 	      if (this.logicalSecondSelect(coords)) {
 	        return true;
 	      } else {
@@ -21619,53 +21681,16 @@
 	      var y2 = coords[0];
 	      var x2 = coords[1];
 	
-	      if (between(x1, x2 + 2, x2 - 2) && between(y1, y2 + 2, y2 - 2)) {
+	      if (this.between(x1, x2 + 2, x2 - 2) && this.between(y1, y2 + 2, y2 - 2)) {
 	        return true;
 	      } else {
 	        return false;
 	      }
 	    }
-	
-	    // #considerMove considers move count (1st or 2nd);
-	    // if #goodfirstSelect; if #goodSecondSelect;
-	    // calls #updateGrid if so; then #switchPlayers;
-	    // this.gameState determined by #isOver;
-	    // #endGame otherwise;
-	
 	  }, {
-	    key: 'considerMove',
-	    value: function considerMove(coords) {
-	      if (this.currentMove === 1) {
-	        if (this.goodFirstSelect(coords)) {
-	          this.message = "good click.";
-	          console.log(this.message);
-	          this.updateGridFirstSelect(coords);
-	        } else {
-	          this.message = "invalid first selection.";
-	          console.log(this.message);
-	          this.restartTurn();
-	        }
-	
-	        this.currentMove++;
-	      } else {
-	        if (this.goodSecondSelect(coords)) {
-	          this.message = "valid move!";
-	          console.log(this.message);
-	          this.updateGridSecondSelect(coords);
-	        } else {
-	          this.message = "invalid move selection.";
-	          console.log(this.message);
-	          this.restartTurn();
-	        }
-	
-	        this.currentMove--;
-	      }
-	
-	      if (!this.isOver) {
-	        this.switchPlayers();
-	      } else {
-	        this.endGame();
-	      }
+	    key: 'between',
+	    value: function between(a, x, y) {
+	      return a <= x && a >= y;
 	    }
 	  }, {
 	    key: 'restartTurn',
@@ -21678,17 +21703,21 @@
 	  }, {
 	    key: 'switchPlayers',
 	    value: function switchPlayers() {
-	      this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
-	      console.log("turn:" + this.currentPlayer.name);
+	      console.log("switch players.");
+	      this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
+	      console.log("player turn:" + this.currentPlayer.name);
 	    }
 	  }, {
 	    key: 'isOver',
 	    value: function isOver() {
-	      this.grid.forEach(function (arr) {
-	        arr.forEach(function (el) {
-	          if (el === false || el === null) return false;
-	        });
+	      var flattened = this.grid.reduce(function (a, b) {
+	        return a.concat(b);
 	      });
+	
+	      for (var i = 0; i < flattened.length; i++) {
+	        if (flattened[i] === false) return false;
+	      }
+	
 	      return true;
 	    }
 	  }, {
