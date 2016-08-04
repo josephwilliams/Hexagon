@@ -9,16 +9,19 @@ class Board extends React.Component {
   }
 
   showBoard () {
-    var boardTiles = [];
-    var board = this.state.board.grid;
+    const boardTiles = [];
+    const grid = this.state.board.grid;
+    const board = this.state.board;
 
-    for (var i = 0; i < board.length; i++) {
-      for (var j = 0; j < board[i].length; j++) {
-        let tileState = board[i][j];
+    for (var i = 0; i < grid.length; i++) {
+      for (var j = 0; j < grid[i].length; j++) {
+        let tileState = grid[i][j];
         boardTiles.push(
           <Tile
             position={[i, j]}
             tileState={tileState}
+            currentPlayer={board.currentPlayer}
+            onClick={() => this.considerMove([i, j])}
             key={[i, j]}
           />
         )

@@ -36,6 +36,7 @@
   border-right: 7px solid #db3b00;
   border-bottom: 7px solid #9f2828;
   border-left: 7px solid #9f2828;
+  cursor: pointer;
 }
 .gem-red .shadow {
   position: absolute;
@@ -47,6 +48,7 @@
   z-index: -1;
   filter: blur(20px);
   transition: filter 1s ease;
+  cursor: pointer;
 }
 
 

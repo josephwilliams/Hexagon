@@ -1,7 +1,11 @@
+import Player from './player'
+
 class Board {
   constructor(){
     this.grid = [];
     this.populate();
+    this.player1 = new Player;
+    this.player2 = new Player;
   }
 
   populate() {
