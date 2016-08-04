@@ -1,12 +1,13 @@
 import React from 'react';
 
-class Tile extends React.Component {
+export class Tile extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
+    this.updateBoard = props.updateBoard;
   }
 
   handleClick () {
-    this.props.updateBoard(this.props.position);
+    this.updateBoard(this.props.position);
   }
 
   render () {
@@ -26,11 +27,12 @@ class Tile extends React.Component {
       gemClass = "gem-blue";
     } else if (this.props.tileState === "open"){
       tileState = "glow-tile";
-      gemClass = "no-gem"
+      gemClass = "no-gem";
     }
 
     return(
-      <div className="tile-container">
+      <div className="tile-container"
+           onClick={() => this.handleClick()}>
         <div className={tileState}>
           <div className={gemClass}>
             <div className="shadow"></div>
@@ -40,5 +42,3 @@ class Tile extends React.Component {
     )
   }
 }
-
-export default Tile;

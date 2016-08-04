@@ -21483,6 +21483,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.Game = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -21494,7 +21495,7 @@
 	
 	var _board2 = _interopRequireDefault(_board);
 	
-	var _board_comp = __webpack_require__(178);
+	var _board_comp = __webpack_require__(179);
 	
 	var _board_comp2 = _interopRequireDefault(_board_comp);
 	
@@ -21506,7 +21507,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Game = function (_React$Component) {
+	var Game = exports.Game = function (_React$Component) {
 	  _inherits(Game, _React$Component);
 	
 	  function Game(props) {
@@ -21521,6 +21522,8 @@
 	  _createClass(Game, [{
 	    key: 'updateBoard',
 	    value: function updateBoard(coords) {
+	      console.log('working');
+	      console.log(this);
 	      var board = this.state.board;
 	    }
 	  }, {
@@ -21539,8 +21542,6 @@
 	
 	  return Game;
 	}(_react2.default.Component);
-	
-	exports.default = Game;
 
 /***/ },
 /* 176 */
@@ -21558,7 +21559,7 @@
 	
 	var _player2 = _interopRequireDefault(_player);
 	
-	var _grid_shapes = __webpack_require__(181);
+	var _grid_shapes = __webpack_require__(178);
 	
 	var _grid_shapes2 = _interopRequireDefault(_grid_shapes);
 	
@@ -21724,6 +21725,23 @@
 
 /***/ },
 /* 178 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	     value: true
+	});
+	var GridShapes = {
+	     1: [[2, false, false, null, null, false, false, 1], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [1, false, false, null, null, false, false, 2]],
+	     2: [[1, false, null, false, false, false, false, 2], [false, false, false, false, false, false, null, false], [null, false, false, null, false, false, false, false], [null, false, false, false, false, null, false, false], [false, false, null, false, false, false, false, null], [false, false, false, false, null, false, false, null], [false, null, false, false, false, false, false, false], [2, false, false, false, false, null, false, 1]],
+	     3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]]
+	};
+	
+	exports.default = GridShapes;
+
+/***/ },
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21731,6 +21749,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.Board = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -21738,7 +21757,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _tile_comp = __webpack_require__(179);
+	var _tile_comp = __webpack_require__(180);
 	
 	var _tile_comp2 = _interopRequireDefault(_tile_comp);
 	
@@ -21749,17 +21768,14 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	// import BoardJS from '../js/board';
 	
-	
-	var Board = function (_React$Component) {
+	var Board = exports.Board = function (_React$Component) {
 	  _inherits(Board, _React$Component);
 	
 	  function Board(props) {
 	    _classCallCheck(this, Board);
 	
 	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Board).call(this, props));
-	    // this.state = { board: new BoardJS };
 	  }
 	
 	  _createClass(Board, [{
@@ -21802,11 +21818,9 @@
 	
 	  return Board;
 	}(_react2.default.Component);
-	
-	exports.default = Board;
 
 /***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21814,6 +21828,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.Tile = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -21829,23 +21844,28 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Tile = function (_React$Component) {
+	var Tile = exports.Tile = function (_React$Component) {
 	  _inherits(Tile, _React$Component);
 	
 	  function Tile(props) {
 	    _classCallCheck(this, Tile);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Tile).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Tile).call(this, props));
+	
+	    _this.updateBoard = props.updateBoard;
+	    return _this;
 	  }
 	
 	  _createClass(Tile, [{
 	    key: 'handleClick',
 	    value: function handleClick() {
-	      this.props.updateBoard(this.props.position);
+	      this.updateBoard(this.props.position);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var tileState;
 	      var gemClass;
 	      if (this.props.tileState === null) {
@@ -21867,7 +21887,10 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'tile-container' },
+	        { className: 'tile-container',
+	          onClick: function onClick() {
+	            return _this2.handleClick();
+	          } },
 	        _react2.default.createElement(
 	          'div',
 	          { className: tileState },
@@ -21883,26 +21906,6 @@
 	
 	  return Tile;
 	}(_react2.default.Component);
-	
-	exports.default = Tile;
-
-/***/ },
-/* 180 */,
-/* 181 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	     value: true
-	});
-	var GridShapes = {
-	     1: [[2, false, false, null, null, false, false, 1], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [1, false, false, null, null, false, false, 2]],
-	     2: [[1, false, null, false, false, false, false, 2], [false, false, false, false, false, false, null, false], [null, false, false, null, false, false, false, false], [null, false, false, false, false, null, false, false], [false, false, null, false, false, false, false, null], [false, false, false, false, null, false, false, null], [false, null, false, false, false, false, false, false], [2, false, false, false, false, null, false, 1]],
-	     3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]]
-	};
-	
-	exports.default = GridShapes;
 
 /***/ }
 /******/ ]);

@@ -1,11 +1,9 @@
 import React from 'react';
-// import BoardJS from '../js/board';
 import Tile from './tile_comp';
 
-class Board extends React.Component {
+export class Board extends React.Component {
   constructor(props){
     super(props);
-    // this.state = { board: new BoardJS };
   }
 
   showBoard () {
@@ -40,5 +38,3 @@ class Board extends React.Component {
     )
   }
 }
-
-export default Board;
