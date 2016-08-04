@@ -21512,16 +21512,27 @@
 	  function Game(props) {
 	    _classCallCheck(this, Game);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Game).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Game).call(this, props));
+	
+	    _this.state = { board: new _board2.default() };
+	    return _this;
 	  }
 	
 	  _createClass(Game, [{
+	    key: 'updateBoard',
+	    value: function updateBoard(coords) {
+	      var board = this.state.board;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'game-container' },
-	        _react2.default.createElement(_board_comp2.default, null)
+	        _react2.default.createElement(_board_comp2.default, {
+	          board: this.state.board,
+	          updateBoard: this.updateBoard
+	        })
 	      );
 	    }
 	  }]);
@@ -21727,10 +21738,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _board = __webpack_require__(176);
-	
-	var _board2 = _interopRequireDefault(_board);
-	
 	var _tile_comp = __webpack_require__(179);
 	
 	var _tile_comp2 = _interopRequireDefault(_tile_comp);
@@ -21742,6 +21749,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	// import BoardJS from '../js/board';
+	
 	
 	var Board = function (_React$Component) {
 	  _inherits(Board, _React$Component);
@@ -21749,23 +21758,17 @@
 	  function Board(props) {
 	    _classCallCheck(this, Board);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Board).call(this, props));
-	
-	    _this.state = { board: new _board2.default() };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Board).call(this, props));
+	    // this.state = { board: new BoardJS };
 	  }
 	
 	  _createClass(Board, [{
-	    key: 'considerMove',
-	    value: function considerMove(coords) {}
-	  }, {
 	    key: 'showBoard',
 	    value: function showBoard() {
 	      var _this2 = this;
 	
 	      var boardTiles = [];
-	      var grid = this.state.board.grid;
-	      var board = this.state.board;
+	      var grid = this.props.board.grid;
 	
 	      for (var i = 0; i < grid.length; i++) {
 	        for (var j = 0; j < grid[i].length; j++) {
@@ -21773,8 +21776,9 @@
 	          boardTiles.push(_react2.default.createElement(_tile_comp2.default, {
 	            position: [i, j],
 	            tileState: tileState,
-	            currentPlayer: board.currentPlayer,
+	            currentPlayer: this.props.board.currentPlayer,
 	            open: false,
+	            updateBoard: this.props.updateBoard,
 	            onClick: function onClick() {
 	              return _this2.considerMove([i, j]);
 	            },
@@ -21828,13 +21832,18 @@
 	var Tile = function (_React$Component) {
 	  _inherits(Tile, _React$Component);
 	
-	  function Tile() {
+	  function Tile(props) {
 	    _classCallCheck(this, Tile);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Tile).apply(this, arguments));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Tile).call(this, props));
 	  }
 	
 	  _createClass(Tile, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this.props.updateBoard(this.props.position);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var tileState;

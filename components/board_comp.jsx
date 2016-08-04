@@ -1,21 +1,16 @@
 import React from 'react';
-import BoardJS from '../js/board';
+// import BoardJS from '../js/board';
 import Tile from './tile_comp';
 
 class Board extends React.Component {
   constructor(props){
     super(props);
-    this.state = { board: new BoardJS };
-  }
-
-  considerMove (coords) {
-
+    // this.state = { board: new BoardJS };
   }
 
   showBoard () {
     const boardTiles = [];
-    const grid = this.state.board.grid;
-    const board = this.state.board;
+    const grid = this.props.board.grid;
 
     for (var i = 0; i < grid.length; i++) {
       for (var j = 0; j < grid[i].length; j++) {
@@ -24,8 +19,9 @@ class Board extends React.Component {
           <Tile
             position={[i, j]}
             tileState={tileState}
-            currentPlayer={board.currentPlayer}
+            currentPlayer={this.props.board.currentPlayer}
             open={false}
+            updateBoard={this.props.updateBoard}
             onClick={() => this.considerMove([i, j])}
             key={[i, j]}
           />
@@ -43,7 +39,6 @@ class Board extends React.Component {
       </div>
     )
   }
-
 }
 
 export default Board;

@@ -19,6 +19,7 @@ body {
   height: 550px;
   display: flex;
   flex-wrap: wrap;
+  border-radius: 100px;
 }
 
 .tile-container {

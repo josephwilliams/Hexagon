@@ -1,6 +1,14 @@
 import React from 'react';
 
 class Tile extends React.Component {
+  constructor (props) {
+    super(props)
+  }
+
+  handleClick () {
+    this.props.updateBoard(this.props.position);
+  }
+
   render () {
     var tileState;
     var gemClass;
