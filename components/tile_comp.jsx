@@ -19,15 +19,15 @@ export default class Tile extends React.Component {
     } else if (this.props.tileState === false){
       tileState = 'open-tile';
       gemClass = "no-gem";
-    } else if (this.props.tileState === 1){
-      tileState = "red-tile";
-      gemClass = "gem-red";
-    } else if (this.props.tileState === 2){
-      tileState = "blue-tile";
-      gemClass = "gem-blue";
-    } else if (this.props.tileState === "open"){
+    } else if (this.props.tileState === true){
       tileState = "glow-tile";
       gemClass = "no-gem";
+    } else if (this.props.tileState === 1){
+      tileState = "red-tile"; // player1 is red
+      gemClass = "gem-red";
+    } else if (this.props.tileState === 2){
+      tileState = "blue-tile"; // player2 is blue
+      gemClass = "gem-blue";
     }
 
     return(

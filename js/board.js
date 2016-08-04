@@ -1,11 +1,11 @@
 import Player from './player';
 import GridShapes from './grid_shapes';
 
-class Board {
+export default class Board {
   constructor () {
     this.grid = [];
-    this.player1 = new Player;
-    this.player2 = new Player;
+    this.player1 = new Player('player 1', 1);
+    this.player2 = new Player('player 2', 2);
     this.currentPlayer = this.player1;
     this.currentMove = 1;
     this.firstSelect = null;
@@ -22,10 +22,15 @@ class Board {
     this.grid = GridShapes[gridKey];
   }
 
-  updateGrid (coords, value) {
-    let x = coords[1];
-    let y = coords[0];
+  updateGridFirstSelect (coords) {
+    var x = coords[1];
+    var y = coords[0];
     this.grid[y][x] = value;
+  }
+
+  updateGridSecondSelect (coords) {
+    var x = coords[1];
+    var y = coords[0];
   }
 
   goodFirstSelect (coords) {
@@ -69,15 +74,16 @@ class Board {
   }
 
   // #considerMove considers move count (1st or 2nd);
-  // if this.firstSelect is good; if 2nd select is good;
-  // calls #updateGrid if so;
-  // gameState determined by #isOver
+  // if #goodfirstSelect; if #goodSecondSelect;
+  // calls #updateGrid if so; then #switchPlayers;
+  // this.gameState determined by #isOver;
+  // #endGame otherwise;
   considerMove (coords) {
     if (this.currentMove === 1){
       if (this.goodFirstSelect(coords)){
         this.message = "good click.";
         console.log(this.message);
-        this.updateGrid(coords);
+        this.updateGridFirstSelect(coords);
       } else {
         this.message = "invalid first selection.";
         console.log(this.message);
@@ -89,7 +95,7 @@ class Board {
       if (this.goodSecondSelect(coords)){
         this.message = "valid move!";
         console.log(this.message);
-        this.updateGrid(coords);
+        this.updateGridSecondSelect(coords);
       } else {
         this.message = "invalid move selection.";
         console.log(this.message);
@@ -115,7 +121,7 @@ class Board {
 
   switchPlayers () {
     this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
-    console.log("turn:" + this.currentPlayer.toString());
+    console.log("turn:" + this.currentPlayer.name);
   }
 
   isOver() {
@@ -130,10 +136,8 @@ class Board {
 
   endGame () {
     this.message = "game over!";
-    console.log(this.message + "winner is:" + this.currentPlayer.toString());
+    console.log(this.message + "winner is:" + this.currentPlayer.name);
     this.winner = this.currentPlayer;
     this.gameState = false;
   }
 }
-
-export default Board;

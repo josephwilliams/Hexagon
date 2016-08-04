@@ -21553,8 +21553,8 @@
 	    _classCallCheck(this, Board);
 	
 	    this.grid = [];
-	    this.player1 = new _player2.default();
-	    this.player2 = new _player2.default();
+	    this.player1 = new _player2.default('player 1', 1);
+	    this.player2 = new _player2.default('player 2', 2);
 	    this.currentPlayer = this.player1;
 	    this.currentMove = 1;
 	    this.firstSelect = null;
@@ -21573,11 +21573,17 @@
 	      this.grid = _grid_shapes2.default[gridKey];
 	    }
 	  }, {
-	    key: 'updateGrid',
-	    value: function updateGrid(coords, value) {
+	    key: 'updateGridFirstSelect',
+	    value: function updateGridFirstSelect(coords) {
 	      var x = coords[1];
 	      var y = coords[0];
 	      this.grid[y][x] = value;
+	    }
+	  }, {
+	    key: 'updateGridSecondSelect',
+	    value: function updateGridSecondSelect(coords) {
+	      var x = coords[1];
+	      var y = coords[0];
 	    }
 	  }, {
 	    key: 'goodFirstSelect',
@@ -21621,9 +21627,10 @@
 	    }
 	
 	    // #considerMove considers move count (1st or 2nd);
-	    // if this.firstSelect is good; if 2nd select is good;
-	    // calls #updateGrid if so;
-	    // gameState determined by #isOver
+	    // if #goodfirstSelect; if #goodSecondSelect;
+	    // calls #updateGrid if so; then #switchPlayers;
+	    // this.gameState determined by #isOver;
+	    // #endGame otherwise;
 	
 	  }, {
 	    key: 'considerMove',
@@ -21632,7 +21639,7 @@
 	        if (this.goodFirstSelect(coords)) {
 	          this.message = "good click.";
 	          console.log(this.message);
-	          this.updateGrid(coords);
+	          this.updateGridFirstSelect(coords);
 	        } else {
 	          this.message = "invalid first selection.";
 	          console.log(this.message);
@@ -21644,7 +21651,7 @@
 	        if (this.goodSecondSelect(coords)) {
 	          this.message = "valid move!";
 	          console.log(this.message);
-	          this.updateGrid(coords);
+	          this.updateGridSecondSelect(coords);
 	        } else {
 	          this.message = "invalid move selection.";
 	          console.log(this.message);
@@ -21672,7 +21679,7 @@
 	    key: 'switchPlayers',
 	    value: function switchPlayers() {
 	      this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
-	      console.log("turn:" + this.currentPlayer.toString());
+	      console.log("turn:" + this.currentPlayer.name);
 	    }
 	  }, {
 	    key: 'isOver',
@@ -21688,7 +21695,7 @@
 	    key: 'endGame',
 	    value: function endGame() {
 	      this.message = "game over!";
-	      console.log(this.message + "winner is:" + this.currentPlayer.toString());
+	      console.log(this.message + "winner is:" + this.currentPlayer.name);
 	      this.winner = this.currentPlayer;
 	      this.gameState = false;
 	    }
@@ -21711,8 +21718,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Player = function Player() {
+	var Player = function Player(name, num) {
 	  _classCallCheck(this, Player);
+	
+	  this.name = name;
+	  this.num = num;
 	};
 	
 	exports.default = Player;
@@ -21723,16 +21733,11 @@
 
 	"use strict";
 	
-	Object.defineProperty(exports, "__esModule", {
-	     value: true
-	});
-	var GridShapes = {
-	     1: [[2, false, false, null, null, false, false, 1], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [1, false, false, null, null, false, false, 2]],
-	     2: [[1, false, null, false, false, false, false, 2], [false, false, false, false, false, false, null, false], [null, false, false, null, false, false, false, false], [null, false, false, false, false, null, false, false], [false, false, null, false, false, false, false, null], [false, false, false, false, null, false, false, null], [false, null, false, false, false, false, false, false], [2, false, false, false, false, null, false, 1]],
-	     3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]]
+	module.exports = {
+	  1: [[2, false, false, null, null, false, false, 1], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [1, false, false, null, null, false, false, 2]],
+	  2: [[1, false, null, false, false, false, false, 2], [false, false, false, false, false, false, null, false], [null, false, false, null, false, false, false, false], [null, false, false, false, false, null, false, false], [false, false, null, false, false, false, false, null], [false, false, false, false, null, false, false, null], [false, null, false, false, false, false, false, false], [2, false, false, false, false, null, false, 1]],
+	  3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]]
 	};
-	
-	exports.default = GridShapes;
 
 /***/ },
 /* 179 */
@@ -21868,15 +21873,15 @@
 	      } else if (this.props.tileState === false) {
 	        tileState = 'open-tile';
 	        gemClass = "no-gem";
-	      } else if (this.props.tileState === 1) {
-	        tileState = "red-tile";
-	        gemClass = "gem-red";
-	      } else if (this.props.tileState === 2) {
-	        tileState = "blue-tile";
-	        gemClass = "gem-blue";
-	      } else if (this.props.tileState === "open") {
+	      } else if (this.props.tileState === true) {
 	        tileState = "glow-tile";
 	        gemClass = "no-gem";
+	      } else if (this.props.tileState === 1) {
+	        tileState = "red-tile"; // player1 is red
+	        gemClass = "gem-red";
+	      } else if (this.props.tileState === 2) {
+	        tileState = "blue-tile"; // player2 is blue
+	        gemClass = "gem-blue";
 	      }
 	
 	      return _react2.default.createElement(
