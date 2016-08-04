@@ -21561,6 +21561,8 @@
 	    this.currentPlayer = this.player1;
 	    this.currentMove = 1;
 	    this.firstMove = null;
+	    this.gameState = true;
+	    this.winner = null;
 	
 	    this.populateGrid();
 	  }
@@ -21576,6 +21578,13 @@
 	      var x = coords[1];
 	      var y = coords[0];
 	      this.grid[y][x] = value;
+	    }
+	  }, {
+	    key: 'startGame',
+	    value: function startGame() {
+	      if (this.gameState) {
+	        considerMove(coords);
+	      }
 	    }
 	  }, {
 	    key: 'goodFirstSelect',
@@ -21629,9 +21638,19 @@
 	
 	        this.currentMove++;
 	      } else {
+	        if (goodSecondSelect(coords)) {
+	          updateGrid(coords);
+	        } else {
+	          restartTurn();
+	        }
 	
 	        this.currentMove--;
+	      }
+	
+	      if (!this.isOver) {
 	        switchPlayers();
+	      } else {
+	        endGame();
 	      }
 	    }
 	  }, {
@@ -21639,10 +21658,11 @@
 	    value: function restartTurn() {
 	      this.firstMove = null;
 	      this.currentMove = 1;
+	      considerMove(coords);
 	    }
 	  }, {
-	    key: 'switchPlayer',
-	    value: function switchPlayer() {
+	    key: 'switchPlayers',
+	    value: function switchPlayers() {
 	      this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
 	    }
 	  }, {
@@ -21654,6 +21674,12 @@
 	        });
 	      });
 	      return true;
+	    }
+	  }, {
+	    key: 'endGame',
+	    value: function endGame() {
+	      this.winner = this.currentPlayer;
+	      this.gameState = false;
 	    }
 	  }]);
 	

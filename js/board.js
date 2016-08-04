@@ -8,6 +8,8 @@ class Board {
     this.currentPlayer = this.player1;
     this.currentMove = 1;
     this.firstMove = null;
+    this.gameState = true;
+    this.winner = null;
 
     this.populateGrid();
   }
@@ -29,6 +31,12 @@ class Board {
     let x = coords[1];
     let y = coords[0];
     this.grid[y][x] = value;
+  }
+
+  startGame () {
+    if (this.gameState){
+      considerMove(coords);
+    }
   }
 
   goodFirstSelect (coords) {
@@ -81,19 +89,29 @@ class Board {
 
       this.currentMove ++;
     } else {
-
+      if (goodSecondSelect(coords)){
+        updateGrid(coords);
+      } else {
+        restartTurn();
+      }
 
       this.currentMove --;
+    }
+
+    if (!this.isOver){
       switchPlayers();
+    } else {
+      endGame();
     }
   }
 
   restartTurn () {
     this.firstMove = null;
     this.currentMove = 1;
+    considerMove(coords);
   }
 
-  switchPlayer () {
+  switchPlayers () {
     this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
   }
 
@@ -105,6 +123,11 @@ class Board {
       });
     });
     return true;
+  }
+
+  endGame () {
+    this.winner = this.currentPlayer;
+    this.gameState = false;
   }
 }
 
