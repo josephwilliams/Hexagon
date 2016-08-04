@@ -1,4 +1,5 @@
-import Player from './player'
+import Player from './player';
+import GridShapes from './grid_shapes';
 
 class Board {
   constructor(){
@@ -15,16 +16,8 @@ class Board {
   }
 
   populateGrid() {
-    this.grid = [
-                 [1, false, false, null, null, false, false, 2],
-                 [false, false, false, false, false, false, false, false],
-                 [false, false, null, false, false, null, false, false],
-                 [false, null, false, false, false, false, null, false],
-                 [false, null, false, false, false, false, null, false],
-                 [false, false, null, false, false, null, false, false],
-                 [false, false, false, false, false, false, false, false],
-                 [2, false, false, null, null, false, false, 1]
-               ];
+    var gridKey = Math.floor(Math.random() * (4 - 1)) + 1;
+    this.grid = GridShapes[gridKey];
   }
 
   updateGrid (coords, value) {

@@ -8,6 +8,10 @@ class Board extends React.Component {
     this.state = { board: new BoardJS };
   }
 
+  considerMove (coords) {
+
+  }
+
   showBoard () {
     const boardTiles = [];
     const grid = this.state.board.grid;

@@ -21494,7 +21494,7 @@
 	
 	var _board2 = _interopRequireDefault(_board);
 	
-	var _board_comp = __webpack_require__(177);
+	var _board_comp = __webpack_require__(178);
 	
 	var _board_comp2 = _interopRequireDefault(_board_comp);
 	
@@ -21543,9 +21543,13 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _player = __webpack_require__(179);
+	var _player = __webpack_require__(177);
 	
 	var _player2 = _interopRequireDefault(_player);
+	
+	var _grid_shapes = __webpack_require__(181);
+	
+	var _grid_shapes2 = _interopRequireDefault(_grid_shapes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21570,7 +21574,8 @@
 	  _createClass(Board, [{
 	    key: 'populateGrid',
 	    value: function populateGrid() {
-	      this.grid = [[1, false, false, null, null, false, false, 2], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [2, false, false, null, null, false, false, 1]];
+	      var gridKey = Math.floor(Math.random() * (4 - 1)) + 1;
+	      this.grid = _grid_shapes2.default[gridKey];
 	    }
 	  }, {
 	    key: 'updateGrid',
@@ -21690,6 +21695,24 @@
 
 /***/ },
 /* 177 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Player = function Player() {
+	  _classCallCheck(this, Player);
+	};
+	
+	exports.default = Player;
+
+/***/ },
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21708,7 +21731,7 @@
 	
 	var _board2 = _interopRequireDefault(_board);
 	
-	var _tile_comp = __webpack_require__(178);
+	var _tile_comp = __webpack_require__(179);
 	
 	var _tile_comp2 = _interopRequireDefault(_tile_comp);
 	
@@ -21733,6 +21756,9 @@
 	  }
 	
 	  _createClass(Board, [{
+	    key: 'considerMove',
+	    value: function considerMove(coords) {}
+	  }, {
 	    key: 'showBoard',
 	    value: function showBoard() {
 	      var _this2 = this;
@@ -21776,7 +21802,7 @@
 	exports.default = Board;
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21852,22 +21878,22 @@
 	exports.default = Tile;
 
 /***/ },
-/* 179 */
+/* 180 */,
+/* 181 */
 /***/ function(module, exports) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	     value: true
 	});
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Player = function Player() {
-	  _classCallCheck(this, Player);
+	var GridShapes = {
+	     1: [[2, false, false, null, null, false, false, 1], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [1, false, false, null, null, false, false, 2]],
+	     2: [[1, false, null, false, false, false, false, 2], [false, false, false, false, false, false, null, false], [null, false, false, null, false, false, false, false], [null, false, false, false, false, null, false, false], [false, false, null, false, false, false, false, null], [false, false, false, false, null, false, false, null], [false, null, false, false, false, false, false, false], [2, false, false, false, false, null, false, 1]],
+	     3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]]
 	};
 	
-	exports.default = Player;
+	exports.default = GridShapes;
 
 /***/ }
 /******/ ]);
