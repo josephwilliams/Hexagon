@@ -21515,6 +21515,7 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Game).call(this, props));
 	
 	    _this.state = { board: new _board2.default() };
+	    console.log(_this);
 	    return _this;
 	  }
 	
@@ -21522,7 +21523,7 @@
 	    key: 'updateBoard',
 	    value: function updateBoard(coords) {
 	      console.log('working');
-	      console.log(this);
+	      console.log(this.state.board);
 	      var board = this.state.board;
 	    }
 	  }, {

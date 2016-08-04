@@ -2,15 +2,16 @@ import React, {Component} from 'react';
 import Board from '../js/board';
 import BoardComponent from './board_comp';
 
-class Game extends React.Component {
+export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = { board: new Board };
+    console.log(this);
   }
 
   updateBoard (coords) {
     console.log('working')
-    console.log(this)
+    console.log(this.state.board)
     var board = this.state.board;
   }
 
@@ -25,5 +26,3 @@ class Game extends React.Component {
     )
   }
 }
-
-export default Game;
