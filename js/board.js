@@ -16,7 +16,7 @@ export default class Board {
     this.blueCount = 2;
     this.deltas = [[0,1],[0,-1],[1,0],[1,1],[1,-1],[-1,0],[-1,1],[-1,-1]];
     this.moveDeltas = [[0,1],[0,-1],[1,0],[1,1],[1,-1],[-1,0],[-1,1],[-1,-1],
-                       [-1,2],[0,2],[1,2],[2,2],[2,-1],[2,0],[2,1],[1,2],
+                       [-1,2],[0,2],[1,2],[2,2],[2,-1],[2,0],[2,1],[1,2],[-2,1],
                        [-2,-2],[-2,-1],[-2,0],[-1,-2],[0,-2],[1,-2],[2,-2],[-2,2]];
     this.recentlyAssessed = [];
 
@@ -47,11 +47,11 @@ export default class Board {
   considerFirstMove (coords) {
     if (this.currentMove === 1){
       if (this.goodFirstSelect(coords)){
-        this.message = "good first selection.";
+        this.message = "good selection.";
         this.currentMove = 2;
         return this.updateGridFirstSelect(coords);
       } else {
-        this.message = "invalid first selection.";
+        this.message = "invalid selection.";
         return this.restartTurn();
       }
     }
@@ -65,19 +65,18 @@ export default class Board {
       if (selectionData[0]){
         this.message = "valid move!";
 
+        var nextPlayer = (this.currentPlayer === this.player1) ? this.player2 : this.player1;
         if (selectionData[1] === "jump"){
-          this.message = "jump!";
-
+          this.message = "jump! " + "   " + nextPlayer.color + "'s turn.";
           this.currentMove = 1;
           return this.updateGridSecondSelectJump(coords);
         } else if (selectionData[1] === "slide"){
-          this.message = "slide!";
-
+          this.message = "slide!" + "   " + nextPlayer.color + "'s turn.";
           this.currentMove = 1;
           return this.updateGridSecondSelectSlide(coords);
         }
       } else {
-        this.message = "invalid second selection.";
+        this.message = "invalid selection.";
         return this.restartTurn();
       }
     }
@@ -160,7 +159,6 @@ export default class Board {
     this.grid.forEach((arr, y) => {
       arr.map((tile, x) => {
         if (this.grid[y][x] === true){
-          console.log(this.grid[y][x]);
           this.grid[y][x] = false;
         }
       });
@@ -210,7 +208,7 @@ export default class Board {
     this.firstSelect = null;
     this.currentMove = 1;
     let color = this.currentPlayer.color;
-    this.message = "Invalid. Restart " + color;
+    this.message = "Invalid. Restart " + color + ".";
   }
 
   switchPlayers () {
