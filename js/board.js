@@ -41,11 +41,9 @@ export default class Board {
     console.log("current player:" + this.currentPlayer.num);
     console.log("current move:" + this.currentMove);
 
-
-
     if (this.currentMove === 1){
       if (this.goodFirstSelect(coords)){
-        this.message = "good click.";
+        this.message = "good first selection.";
         console.log(this.message);
         this.currentMove = 2;
         return this.updateGridFirstSelect(coords);
@@ -68,33 +66,19 @@ export default class Board {
     }
   }
 
-  updateGridFirstSelect (coords) {
-    var x = coords[1];
-    var y = coords[0];
-
-    // make available spaces glow
-  }
-
-  updateGridSecondSelect (coords) {
-    var x = coords[1];
-    var y = coords[0];
-
-    this.grid[y][x] = this.currentPlayer.num;
-    this.persistGame();
-  }
-
-  resolveBoard () {
-    // undo the glowing open spaces after move is made
-  }
-
   goodFirstSelect (coords) {
     var x = coords[1];
     var y = coords[0];
-    if (this.currentPlayer === 1){
-      if (this.grid[y][x] !== 1)
+    if (this.currentPlayer === this.player1){
+      if (this.grid[y][x] !== 1) {
+        console.log("player 1: bad first select");
         return false;
-    } else if (this.grid[y][x] !== 2) {
+      }
+    } else if (this.currentPlayer === this.player2){
+      if (this.grid[y][x] !== 2) {
+        console.log("player 2: bad first select");
         return false;
+      }
     }
 
     this.firstSelect = [y, x];
@@ -105,7 +89,7 @@ export default class Board {
     var x = coords[1];
     var y = coords[0];
     if(this.grid[y][x] !== false)
-      return false;
+    return false;
 
     if (this.logicalSecondSelect(coords)){
       return true;
@@ -129,6 +113,25 @@ export default class Board {
 
   between(a, x, y) {
     return a <= x && a >= y;
+  }
+
+  updateGridFirstSelect (coords) {
+    var x = coords[1];
+    var y = coords[0];
+
+    // make available spaces glow
+  }
+
+  updateGridSecondSelect (coords) {
+    var x = coords[1];
+    var y = coords[0];
+
+    this.grid[y][x] = this.currentPlayer.num;
+    this.persistGame();
+  }
+
+  resolveBoard () {
+    // undo the glowing open spaces after move is made
   }
 
   restartTurn () {

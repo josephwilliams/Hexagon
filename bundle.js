@@ -21507,7 +21507,6 @@
 	    var x = coords[1];
 	
 	    if (!board.isOver()) {
-	
 	      board.considerMove(coords);
 	    }
 	
@@ -21602,7 +21601,7 @@
 	
 	      if (this.currentMove === 1) {
 	        if (this.goodFirstSelect(coords)) {
-	          this.message = "good click.";
+	          this.message = "good first selection.";
 	          console.log(this.message);
 	          this.currentMove = 2;
 	          return this.updateGridFirstSelect(coords);
@@ -21625,36 +21624,20 @@
 	      }
 	    }
 	  }, {
-	    key: 'updateGridFirstSelect',
-	    value: function updateGridFirstSelect(coords) {
-	      var x = coords[1];
-	      var y = coords[0];
-	
-	      // make available spaces glow
-	    }
-	  }, {
-	    key: 'updateGridSecondSelect',
-	    value: function updateGridSecondSelect(coords) {
-	      var x = coords[1];
-	      var y = coords[0];
-	
-	      this.grid[y][x] = this.currentPlayer.num;
-	      this.persistGame();
-	    }
-	  }, {
-	    key: 'resolveBoard',
-	    value: function resolveBoard() {
-	      // undo the glowing open spaces after move is made
-	    }
-	  }, {
 	    key: 'goodFirstSelect',
 	    value: function goodFirstSelect(coords) {
 	      var x = coords[1];
 	      var y = coords[0];
-	      if (this.currentPlayer === 1) {
-	        if (this.grid[y][x] !== 1) return false;
-	      } else if (this.grid[y][x] !== 2) {
-	        return false;
+	      if (this.currentPlayer === this.player1) {
+	        if (this.grid[y][x] !== 1) {
+	          console.log("player 1: bad first select");
+	          return false;
+	        }
+	      } else if (this.currentPlayer === this.player2) {
+	        if (this.grid[y][x] !== 2) {
+	          console.log("player 2: bad first select");
+	          return false;
+	        }
 	      }
 	
 	      this.firstSelect = [y, x];
@@ -21691,6 +21674,28 @@
 	    key: 'between',
 	    value: function between(a, x, y) {
 	      return a <= x && a >= y;
+	    }
+	  }, {
+	    key: 'updateGridFirstSelect',
+	    value: function updateGridFirstSelect(coords) {
+	      var x = coords[1];
+	      var y = coords[0];
+	
+	      // make available spaces glow
+	    }
+	  }, {
+	    key: 'updateGridSecondSelect',
+	    value: function updateGridSecondSelect(coords) {
+	      var x = coords[1];
+	      var y = coords[0];
+	
+	      this.grid[y][x] = this.currentPlayer.num;
+	      this.persistGame();
+	    }
+	  }, {
+	    key: 'resolveBoard',
+	    value: function resolveBoard() {
+	      // undo the glowing open spaces after move is made
 	    }
 	  }, {
 	    key: 'restartTurn',
