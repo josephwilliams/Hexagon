@@ -33,10 +33,9 @@ export default class Board extends React.Component {
       <div className="board-container">
         <Scoreboard redCount={this.props.board.redCount}
                     blueCount={this.props.board.blueCount}
+                    message={this.props.board.message}
+                    currentPlayer={this.props.board.currentPlayer}
                     />
-        <GameMessage message={this.props.board.message}
-                     currentPlayer={this.props.board.currentPlayer}
-                     />
         <div className="tiles-container">
           {this.showBoard()}
         </div>

@@ -21528,7 +21528,13 @@
 	
 	      board.scoreboard();
 	      if (!board.isOver()) {
-	        board.considerMove(coords);
+	        if (board.currentMove === 1) {
+	          board.considerFirstMove(coords);
+	          this.setState({ board: board });
+	        } else if (board.currentMove === 2) {
+	          board.considerSecondMove(coords);
+	          this.setState({ board: board });
+	        }
 	      }
 	
 	      this.setState({ board: board });
@@ -21539,6 +21545,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'game-container' },
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'TETRAGON'
+	        ),
 	        _react2.default.createElement(_board_comp2.default, {
 	          board: this.state.board,
 	          updateBoard: this.updateBoard
@@ -21592,6 +21603,7 @@
 	    this.redCount = 2;
 	    this.blueCount = 2;
 	    this.deltas = [[0, 1], [0, -1], [1, 0], [1, 1], [1, -1], [-1, 0], [-1, 1], [-1, -1]];
+	    this.moveDeltas = [[0, 1], [0, -1], [1, 0], [1, 1], [1, -1], [-1, 0], [-1, 1], [-1, -1], [-1, 2], [0, 2], [1, 2], [2, 2], [2, -1], [2, 0], [2, 1], [1, 2], [-2, -2], [-2, -1], [-2, 0], [-1, -2], [0, -2], [1, -2], [2, -2], [-2, 2]];
 	    this.recentlyAssessed = [];
 	
 	    this.populateGrid();
@@ -21623,8 +21635,8 @@
 	    // #endGame otherwise;
 	
 	  }, {
-	    key: 'considerMove',
-	    value: function considerMove(coords) {
+	    key: 'considerFirstMove',
+	    value: function considerFirstMove(coords) {
 	      if (this.currentMove === 1) {
 	        if (this.goodFirstSelect(coords)) {
 	          this.message = "good first selection.";
@@ -21634,7 +21646,13 @@
 	          this.message = "invalid first selection.";
 	          return this.restartTurn();
 	        }
-	      } else {
+	      }
+	    }
+	  }, {
+	    key: 'considerSecondMove',
+	    value: function considerSecondMove(coords) {
+	      this.resolveBoard();
+	      if (this.currentMove === 2) {
 	        var selectionData = this.goodSecondSelect(coords);
 	        // [0] will be true/false; [1] will be "jump"/"slide"
 	        if (selectionData[0]) {
@@ -21724,13 +21742,13 @@
 	      this.recentlyAssessed = [];
 	
 	      // make available spots glow;
-	      this.deltas.forEach(function (delta) {
+	      this.moveDeltas.forEach(function (delta) {
 	        var tempX = delta[1] + x;
 	        var tempY = delta[0] + y;
 	
-	        if (_this.grid[tempY] == null) {
+	        if (_this.grid[tempY] == null || _this.grid[tempY][tempX] == null) {
 	          return;
-	        } else if (!_this.grid[tempY][tempX] == null && _this.grid[tempY][tempX] === false) {
+	        } else if (_this.grid[tempY][tempX] === false) {
 	          _this.grid[tempY][tempX] = true;
 	          _this.recentlyAssessed.push([tempY, tempX]);
 	        }
@@ -21739,7 +21757,16 @@
 	  }, {
 	    key: 'resolveBoard',
 	    value: function resolveBoard() {
-	      // undo the glowing open spaces after move is made
+	      var _this2 = this;
+	
+	      this.grid.forEach(function (arr, y) {
+	        arr.map(function (tile, x) {
+	          if (_this2.grid[y][x] === true) {
+	            console.log(_this2.grid[y][x]);
+	            _this2.grid[y][x] = false;
+	          }
+	        });
+	      });
 	    }
 	  }, {
 	    key: 'updateGridSecondSelectJump',
@@ -21768,7 +21795,7 @@
 	  }, {
 	    key: 'assessOffensiveMove',
 	    value: function assessOffensiveMove(coords) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var x = coords[1];
 	      var y = coords[0];
@@ -21777,11 +21804,11 @@
 	      this.deltas.forEach(function (delta) {
 	        var tempX = delta[1] + x;
 	        var tempY = delta[0] + y;
-	        var otherPlayer = _this2.currentPlayer === _this2.player1 ? _this2.player2 : _this2.player1;
-	        if (_this2.grid[tempY] == null) {
+	        var otherPlayer = _this3.currentPlayer === _this3.player1 ? _this3.player2 : _this3.player1;
+	        if (_this3.grid[tempY] == null) {
 	          return;
-	        } else if (_this2.grid[tempY][tempX] === otherPlayer.num) {
-	          _this2.grid[tempY][tempX] = _this2.currentPlayer.num;
+	        } else if (_this3.grid[tempY][tempX] === otherPlayer.num) {
+	          _this3.grid[tempY][tempX] = _this3.currentPlayer.num;
 	        }
 	      });
 	    }
@@ -21791,7 +21818,7 @@
 	      this.firstSelect = null;
 	      this.currentMove = 1;
 	      var color = this.currentPlayer.color;
-	      this.message = "Bad selection. Restart turn. " + color + "'s turn.";
+	      this.message = "Invalid. Restart " + color;
 	    }
 	  }, {
 	    key: 'switchPlayers',
@@ -21957,9 +21984,8 @@
 	        'div',
 	        { className: 'board-container' },
 	        _react2.default.createElement(_scoreboard_comp2.default, { redCount: this.props.board.redCount,
-	          blueCount: this.props.board.blueCount
-	        }),
-	        _react2.default.createElement(_game_message_comp2.default, { message: this.props.board.message,
+	          blueCount: this.props.board.blueCount,
+	          message: this.props.board.message,
 	          currentPlayer: this.props.board.currentPlayer
 	        }),
 	        _react2.default.createElement(
@@ -22106,15 +22132,24 @@
 	        { className: "scoreboard-container" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "score-container" },
-	          "red: ",
-	          this.props.redCount
+	          { className: "top" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "score-container" },
+	            "red: ",
+	            this.props.redCount
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "score-container" },
+	            "blue: ",
+	            this.props.blueCount
+	          )
 	        ),
 	        _react2.default.createElement(
 	          "div",
-	          { className: "score-container" },
-	          "blue: ",
-	          this.props.blueCount
+	          { className: "bottom" },
+	          this.props.message
 	        )
 	      );
 	    }

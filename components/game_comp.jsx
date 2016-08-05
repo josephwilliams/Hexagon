@@ -16,7 +16,13 @@ export default class Game extends React.Component {
 
     board.scoreboard();
     if (!board.isOver()){
-      board.considerMove(coords);
+      if (board.currentMove === 1){
+        board.considerFirstMove(coords);
+        this.setState({ board: board });
+      } else if (board.currentMove === 2){
+        board.considerSecondMove(coords);
+        this.setState({ board: board });
+      }
     }
 
     this.setState({ board: board });
@@ -25,6 +31,7 @@ export default class Game extends React.Component {
   render () {
     return (
       <div className="game-container">
+        <h1>TETRAGON</h1>
         <BoardComponent
           board={this.state.board}
           updateBoard={this.updateBoard}
