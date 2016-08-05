@@ -21615,11 +21615,25 @@
 	          return this.restartTurn();
 	        }
 	      } else {
-	        if (this.goodSecondSelect(coords)) {
+	        var selectionData = this.goodSecondSelect(coords);
+	        // [0] will be true/false; [1] will be "jump"/"slide"
+	        if (selectionData[0]) {
 	          this.message = "valid move!";
 	          console.log(this.message);
-	          this.currentMove = 1;
-	          return this.updateGridSecondSelect(coords);
+	
+	          if (selectionData[1] === "jump") {
+	            this.message = "jump!";
+	            console.log(this.message);
+	
+	            this.currentMove = 1;
+	            return this.updateGridSecondSelectJump(coords);
+	          } else if (selectionData[1] === "slide") {
+	            this.message = "slide!";
+	            console.log(this.message);
+	
+	            this.currentMove = 1;
+	            return this.updateGridSecondSelectSlide(coords);
+	          }
 	        } else {
 	          this.message = "invalid second selection.";
 	          console.log(this.message);
@@ -21654,8 +21668,13 @@
 	      var y = coords[0];
 	      if (this.grid[y][x] !== false) return false;
 	
-	      if (this.logicalSecondSelect(coords)) {
-	        return true;
+	      var selectionData = this.logicalSecondSelect(coords);
+	      if (selectionData[0]) {
+	        if (selectionData[1] === "jump") {
+	          return [true, "jump"];
+	        } else if (selectionData[1] === "slide") {
+	          return [true, "slide"];
+	        }
 	      } else {
 	        return false;
 	      }
@@ -21668,8 +21687,10 @@
 	      var y2 = coords[0];
 	      var x2 = coords[1];
 	
-	      if (this.between(x1, x2 + 2, x2 - 2) && this.between(y1, y2 + 2, y2 - 2)) {
-	        return true;
+	      if (this.between(x1, x2 + 1, x2 - 1) && this.between(y1, y2 + 1, y2 - 1)) {
+	        return [true, "slide"];
+	      } else if (this.between(x1, x2 + 2, x2 - 2) && this.between(y1, y2 + 2, y2 - 2)) {
+	        return [true, "jump"];
 	      } else {
 	        return false;
 	      }
@@ -21688,8 +21709,21 @@
 	      // make available spaces glow
 	    }
 	  }, {
-	    key: 'updateGridSecondSelect',
-	    value: function updateGridSecondSelect(coords) {
+	    key: 'updateGridSecondSelectJump',
+	    value: function updateGridSecondSelectJump(coords) {
+	      var x = coords[1];
+	      var y = coords[0];
+	      this.grid[y][x] = this.currentPlayer.num;
+	
+	      var x1 = this.firstSelect[1];
+	      var y1 = this.firstSelect[0];
+	      this.grid[y1][x1] = false;
+	
+	      this.persistGame();
+	    }
+	  }, {
+	    key: 'updateGridSecondSelectSlide',
+	    value: function updateGridSecondSelectSlide(coords) {
 	      var x = coords[1];
 	      var y = coords[0];
 	
