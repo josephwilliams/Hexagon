@@ -1,5 +1,6 @@
 import React from 'react';
 
+// ending up merging this into the ScoreBoard component
 export default class GameMessage extends React.Component {
   constructor (props) {
     super(props);
