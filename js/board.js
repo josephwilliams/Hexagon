@@ -4,16 +4,18 @@ import GridShapes from './grid_shapes';
 export default class Board {
   constructor () {
     this.grid = [];
-    this.player1 = new Player('player 1', 1);
-    this.player2 = new Player('player 2', 2);
+    this.player1 = new Player('player 1', 1, 'Red');
+    this.player2 = new Player('player 2', 2, 'Blue');
     this.currentPlayer = this.player1;
     this.currentMove = 1;
     this.firstSelect = null;
     this.gameState = true;
     this.winner = null;
-    this.message = "begin!";
+    this.message = "Begin! Red moves first.";
     this.redCount = 2;
     this.blueCount = 2;
+    this.deltas = [[0,1],[0,-1],[1,0],[1,1],[1,-1],[-1,0],[-1,1],[-1,-1]];
+    this.recentlyAssessed = [];
 
     this.populateGrid();
   }
@@ -27,7 +29,6 @@ export default class Board {
   persistGame () {
     this.scoreboard();
     if (!this.isOver()){
-      console.log("game persists!");
       this.switchPlayers();
     } else {
       this.endGame();
@@ -41,18 +42,13 @@ export default class Board {
   // this.gameState determined by #isOver;
   // #endGame otherwise;
   considerMove (coords) {
-    console.log("current player:" + this.currentPlayer.num);
-    console.log("current move:" + this.currentMove);
-
     if (this.currentMove === 1){
       if (this.goodFirstSelect(coords)){
         this.message = "good first selection.";
-        console.log(this.message);
         this.currentMove = 2;
         return this.updateGridFirstSelect(coords);
       } else {
         this.message = "invalid first selection.";
-        console.log(this.message);
         return this.restartTurn();
       }
     } else {
@@ -60,24 +56,20 @@ export default class Board {
       // [0] will be true/false; [1] will be "jump"/"slide"
       if (selectionData[0]){
         this.message = "valid move!";
-        console.log(this.message);
 
         if (selectionData[1] === "jump"){
           this.message = "jump!";
-          console.log(this.message);
 
           this.currentMove = 1;
           return this.updateGridSecondSelectJump(coords);
         } else if (selectionData[1] === "slide"){
           this.message = "slide!";
-          console.log(this.message);
 
           this.currentMove = 1;
           return this.updateGridSecondSelectSlide(coords);
         }
       } else {
         this.message = "invalid second selection.";
-        console.log(this.message);
         return this.restartTurn();
       }
     }
@@ -88,12 +80,10 @@ export default class Board {
     var y = coords[0];
     if (this.currentPlayer === this.player1){
       if (this.grid[y][x] !== 1) {
-        console.log("player 1: bad first select");
         return false;
       }
     } else if (this.currentPlayer === this.player2){
       if (this.grid[y][x] !== 2) {
-        console.log("player 2: bad first select");
         return false;
       }
     }
@@ -142,8 +132,24 @@ export default class Board {
   updateGridFirstSelect (coords) {
     var x = coords[1];
     var y = coords[0];
+    this.recentlyAssessed = [];
 
-    // make available spaces glow
+    // make available spots glow;
+    this.deltas.forEach(delta => {
+      let tempX = delta[1] + x;
+      let tempY = delta[0] + y;
+
+      if (this.grid[tempY] == null) {
+        return;
+      } else if (!this.grid[tempY][tempX] == null && this.grid[tempY][tempX] === false) {
+        this.grid[tempY][tempX] = true;
+        this.recentlyAssessed.push([tempY, tempX]);
+      }
+    });
+  }
+
+  resolveBoard () {
+    // undo the glowing open spaces after move is made
   }
 
   updateGridSecondSelectJump (coords) {
@@ -155,6 +161,7 @@ export default class Board {
     var y1 = this.firstSelect[0];
     this.grid[y1][x1] = false;
 
+    this.assessOffensiveMove(coords);
     this.persistGame();
   }
 
@@ -163,24 +170,36 @@ export default class Board {
     var y = coords[0];
 
     this.grid[y][x] = this.currentPlayer.num;
+    this.assessOffensiveMove(coords);
     this.persistGame();
   }
 
-  resolveBoard () {
-    // undo the glowing open spaces after move is made
+  assessOffensiveMove (coords) {
+    var x = coords[1];
+    var y = coords[0];
+
+    // change gem colors / offensive move
+    this.deltas.forEach(delta => {
+      let tempX = delta[1] + x;
+      let tempY = delta[0] + y;
+      var otherPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
+      if (this.grid[tempY] == null) {
+        return;
+      } else if (this.grid[tempY][tempX] === otherPlayer.num) {
+        this.grid[tempY][tempX] = this.currentPlayer.num;
+      }
+    });
   }
 
   restartTurn () {
     this.firstSelect = null;
     this.currentMove = 1;
-    this.message = "restart turn.";
-    console.log(this.message);
+    let color = this.currentPlayer.color;
+    this.message = "Bad selection. Restart turn. " + color + "'s turn.";
   }
 
   switchPlayers () {
-    console.log("switch players.");
     this.currentPlayer = (this.currentPlayer === this.player1) ? this.player2 : this.player1;
-    console.log("player turn:" + this.currentPlayer.name);
   }
 
   isOver() {
@@ -196,7 +215,6 @@ export default class Board {
 
   endGame () {
     this.message = "game over!";
-    console.log(this.message + "winner is:" + this.currentPlayer.name);
     this.winner = this.currentPlayer;
     this.gameState = false;
   }

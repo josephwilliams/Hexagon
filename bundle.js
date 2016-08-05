@@ -21581,16 +21581,18 @@
 	    _classCallCheck(this, Board);
 	
 	    this.grid = [];
-	    this.player1 = new _player2.default('player 1', 1);
-	    this.player2 = new _player2.default('player 2', 2);
+	    this.player1 = new _player2.default('player 1', 1, 'Red');
+	    this.player2 = new _player2.default('player 2', 2, 'Blue');
 	    this.currentPlayer = this.player1;
 	    this.currentMove = 1;
 	    this.firstSelect = null;
 	    this.gameState = true;
 	    this.winner = null;
-	    this.message = "begin!";
+	    this.message = "Begin! Red moves first.";
 	    this.redCount = 2;
 	    this.blueCount = 2;
+	    this.deltas = [[0, 1], [0, -1], [1, 0], [1, 1], [1, -1], [-1, 0], [-1, 1], [-1, -1]];
+	    this.recentlyAssessed = [];
 	
 	    this.populateGrid();
 	  }
@@ -21607,7 +21609,6 @@
 	    value: function persistGame() {
 	      this.scoreboard();
 	      if (!this.isOver()) {
-	        console.log("game persists!");
 	        this.switchPlayers();
 	      } else {
 	        this.endGame();
@@ -21624,18 +21625,13 @@
 	  }, {
 	    key: 'considerMove',
 	    value: function considerMove(coords) {
-	      console.log("current player:" + this.currentPlayer.num);
-	      console.log("current move:" + this.currentMove);
-	
 	      if (this.currentMove === 1) {
 	        if (this.goodFirstSelect(coords)) {
 	          this.message = "good first selection.";
-	          console.log(this.message);
 	          this.currentMove = 2;
 	          return this.updateGridFirstSelect(coords);
 	        } else {
 	          this.message = "invalid first selection.";
-	          console.log(this.message);
 	          return this.restartTurn();
 	        }
 	      } else {
@@ -21643,24 +21639,20 @@
 	        // [0] will be true/false; [1] will be "jump"/"slide"
 	        if (selectionData[0]) {
 	          this.message = "valid move!";
-	          console.log(this.message);
 	
 	          if (selectionData[1] === "jump") {
 	            this.message = "jump!";
-	            console.log(this.message);
 	
 	            this.currentMove = 1;
 	            return this.updateGridSecondSelectJump(coords);
 	          } else if (selectionData[1] === "slide") {
 	            this.message = "slide!";
-	            console.log(this.message);
 	
 	            this.currentMove = 1;
 	            return this.updateGridSecondSelectSlide(coords);
 	          }
 	        } else {
 	          this.message = "invalid second selection.";
-	          console.log(this.message);
 	          return this.restartTurn();
 	        }
 	      }
@@ -21672,12 +21664,10 @@
 	      var y = coords[0];
 	      if (this.currentPlayer === this.player1) {
 	        if (this.grid[y][x] !== 1) {
-	          console.log("player 1: bad first select");
 	          return false;
 	        }
 	      } else if (this.currentPlayer === this.player2) {
 	        if (this.grid[y][x] !== 2) {
-	          console.log("player 2: bad first select");
 	          return false;
 	        }
 	      }
@@ -21727,10 +21717,29 @@
 	  }, {
 	    key: 'updateGridFirstSelect',
 	    value: function updateGridFirstSelect(coords) {
+	      var _this = this;
+	
 	      var x = coords[1];
 	      var y = coords[0];
+	      this.recentlyAssessed = [];
 	
-	      // make available spaces glow
+	      // make available spots glow;
+	      this.deltas.forEach(function (delta) {
+	        var tempX = delta[1] + x;
+	        var tempY = delta[0] + y;
+	
+	        if (_this.grid[tempY] == null) {
+	          return;
+	        } else if (!_this.grid[tempY][tempX] == null && _this.grid[tempY][tempX] === false) {
+	          _this.grid[tempY][tempX] = true;
+	          _this.recentlyAssessed.push([tempY, tempX]);
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'resolveBoard',
+	    value: function resolveBoard() {
+	      // undo the glowing open spaces after move is made
 	    }
 	  }, {
 	    key: 'updateGridSecondSelectJump',
@@ -21743,6 +21752,7 @@
 	      var y1 = this.firstSelect[0];
 	      this.grid[y1][x1] = false;
 	
+	      this.assessOffensiveMove(coords);
 	      this.persistGame();
 	    }
 	  }, {
@@ -21752,27 +21762,41 @@
 	      var y = coords[0];
 	
 	      this.grid[y][x] = this.currentPlayer.num;
+	      this.assessOffensiveMove(coords);
 	      this.persistGame();
 	    }
 	  }, {
-	    key: 'resolveBoard',
-	    value: function resolveBoard() {
-	      // undo the glowing open spaces after move is made
+	    key: 'assessOffensiveMove',
+	    value: function assessOffensiveMove(coords) {
+	      var _this2 = this;
+	
+	      var x = coords[1];
+	      var y = coords[0];
+	
+	      // change gem colors / offensive move
+	      this.deltas.forEach(function (delta) {
+	        var tempX = delta[1] + x;
+	        var tempY = delta[0] + y;
+	        var otherPlayer = _this2.currentPlayer === _this2.player1 ? _this2.player2 : _this2.player1;
+	        if (_this2.grid[tempY] == null) {
+	          return;
+	        } else if (_this2.grid[tempY][tempX] === otherPlayer.num) {
+	          _this2.grid[tempY][tempX] = _this2.currentPlayer.num;
+	        }
+	      });
 	    }
 	  }, {
 	    key: 'restartTurn',
 	    value: function restartTurn() {
 	      this.firstSelect = null;
 	      this.currentMove = 1;
-	      this.message = "restart turn.";
-	      console.log(this.message);
+	      var color = this.currentPlayer.color;
+	      this.message = "Bad selection. Restart turn. " + color + "'s turn.";
 	    }
 	  }, {
 	    key: 'switchPlayers',
 	    value: function switchPlayers() {
-	      console.log("switch players.");
 	      this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
-	      console.log("player turn:" + this.currentPlayer.name);
 	    }
 	  }, {
 	    key: 'isOver',
@@ -21791,7 +21815,6 @@
 	    key: 'endGame',
 	    value: function endGame() {
 	      this.message = "game over!";
-	      console.log(this.message + "winner is:" + this.currentPlayer.name);
 	      this.winner = this.currentPlayer;
 	      this.gameState = false;
 	    }
@@ -21833,11 +21856,12 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Player = function Player(name, num) {
+	var Player = function Player(name, num, color) {
 	  _classCallCheck(this, Player);
 	
 	  this.name = name;
 	  this.num = num;
+	  this.color = color;
 	};
 	
 	exports.default = Player;
