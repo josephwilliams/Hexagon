@@ -4,6 +4,12 @@ body {
   background: -o-radial-gradient(circle, #00ffb1, #8ef3e9, #764f77); /* Opera 11.6 to 12.0 */
   background: -moz-radial-gradient(circle, #00ffb1, #8ef3e9, #764f77); /* Firefox 3.6 to 15 */
   background: radial-gradient(circle, #1b4f3f, #608b86, #e1fff1);
+
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;
+  cursor: default;
 }
 
 .content {
@@ -60,7 +66,7 @@ body {
   align-items: center;
   flex-direction: column;
   border: 1px solid rgba(255, 255, 255, 0.75);
-  margin: 20px 0px 5px 0px;
+  margin: 20px 0px 10px 0px;
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0px 0px 10px rgba(94, 94, 94, 0.68);
   font-family: 'Bungee Hairline', cursive;
@@ -81,20 +87,42 @@ body {
   padding: 10px;
 }
 
-.help-button {
+.how-container {
   font-family: 'Bungee Hairline', cursive;
   font-weight: 900;
   font-size: 20px;
   color: white;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding-bottom: 5px;
 }
 
-.help-button h5 {
+.how-container h5 {
   cursor: pointer;
+}
+
+h5 {
   margin: 0 auto;
   text-shadow: 0px 0px 5px black;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 5px 5px 26px 25px;
+  padding: 5px 5px 9px 6px;
+  background: rgba(255, 255, 255, 0.12);
+  text-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 10px rgba(94, 94, 94, 0.68);
+  width: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.current-player-container {
+  font-family: 'Bungee Hairline', cursive;
+  font-weight: 900;
+  font-size: 20px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
 }

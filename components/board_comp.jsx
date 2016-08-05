@@ -10,6 +10,7 @@ export default class Board extends React.Component {
   constructor (props) {
     super(props);
     this.state = { modalIsOpen: false };
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   showBoard () {
@@ -37,8 +38,9 @@ export default class Board extends React.Component {
   }
 
   toggleModal () {
-    console.log('working');
-    this.setState({ modalIsOpen: !this.state.modalIsOpen });
+    let newModalState = !this.state.modalIsOpen;
+    this.setState({ modalIsOpen: newModalState });
+
     if (this.state.modalIsOpen)
       ModalStyle.content.opacity = '0';
   }
@@ -57,7 +59,7 @@ export default class Board extends React.Component {
           onAfterOpen={this.onModalOpen}
           style={ModalStyle}
          >
-          <Instructions />
+          <Instructions toggleModal={this.toggleModal} />
         </Modal>
       )
     }
@@ -65,20 +67,35 @@ export default class Board extends React.Component {
     return nodeModal;
   }
 
+  whosTurn () {
+    let currentColor = this.props.board.currentPlayer.color;
+    var textShadow = (currentColor === 'Red') ? "0px 0px 5px #ff0707" : "0px 0px 5px #07e2ff";
+    return (
+      <div style={{textShadow: textShadow}}>
+        {this.props.board.currentPlayer.color}
+      </div>
+    )
+  }
+
   render () {
     return (
       <div className="board-container">
         {this.modalNode()}
+        <div className="current-player-container">
+          <h5>
+            {this.whosTurn()}
+          </h5>
+        </div>
         <Scoreboard redCount={this.props.board.redCount}
                     blueCount={this.props.board.blueCount}
                     message={this.props.board.message}
                     currentPlayer={this.props.board.currentPlayer}
         />
-        <div className="help-button">
-          <h5 onClick={() => this.toggleModal()}>
-            how to play
-          </h5>
-        </div>
+      <div className="how-container">
+        <h5 onClick={() => this.toggleModal()}>
+          how?
+        </h5>
+      </div>
         <div className="tiles-container">
           {this.showBoard()}
         </div>
