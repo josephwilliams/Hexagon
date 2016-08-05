@@ -11,7 +11,9 @@ export default class Board {
     this.firstSelect = null;
     this.gameState = true;
     this.winner = null;
-    this.message = "";
+    this.message = "begin!";
+    this.redCount = 2;
+    this.blueCount = 2;
 
     this.populateGrid();
   }
@@ -23,6 +25,7 @@ export default class Board {
   }
 
   persistGame () {
+    this.scoreboard();
     if (!this.isOver()){
       console.log("game persists!");
       this.switchPlayers();
@@ -163,5 +166,21 @@ export default class Board {
     console.log(this.message + "winner is:" + this.currentPlayer.name);
     this.winner = this.currentPlayer;
     this.gameState = false;
+  }
+
+  scoreboard () {
+    var flattened = this.grid.reduce((a, b) => a.concat(b));
+    var blueCount = 0;
+    var redCount = 0;
+    for (var i = 0; i < flattened.length; i++) {
+      if (flattened[i] === 1){
+        redCount ++;
+      } else if (flattened[i] === 2){
+        blueCount ++;
+      }
+    }
+
+    this.redCount = redCount;
+    this.blueCount = blueCount;
   }
 }

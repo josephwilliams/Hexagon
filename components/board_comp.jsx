@@ -1,5 +1,7 @@
 import React from 'react';
 import Tile from './tile_comp';
+import GameMessage from './game_message_comp';
+import Scoreboard from './scoreboard_comp';
 
 export default class Board extends React.Component {
   showBoard () {
@@ -29,7 +31,15 @@ export default class Board extends React.Component {
   render () {
     return (
       <div className="board-container">
-        {this.showBoard()}
+        <Scoreboard redCount={this.props.board.redCount}
+                    blueCount={this.props.board.blueCount}
+                    />
+        <GameMessage message={this.props.board.message}
+                     currentPlayer={this.props.board.currentPlayer}
+                     />
+        <div className="tiles-container">
+          {this.showBoard()}
+        </div>
       </div>
     )
   }

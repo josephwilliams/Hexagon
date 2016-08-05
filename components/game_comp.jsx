@@ -12,6 +12,7 @@ var Game = React.createClass ({
     var y = coords[0];
     var x = coords[1];
 
+    board.scoreboard();
     if (!board.isOver()){
       board.considerMove(coords);
     }
