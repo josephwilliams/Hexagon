@@ -2,12 +2,14 @@ import React from 'react';
 import Board from '../js/board';
 import BoardComponent from './board_comp';
 
-var Game = React.createClass ({
-  getInitialState: function () {
-    return ({ board: new Board });
-  },
+export default class Game extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = { board: new Board };
+    this.updateBoard = this.updateBoard.bind(this);
+  }
 
-  updateBoard: function (coords) {
+  updateBoard (coords) {
     var board = this.state.board;
     var y = coords[0];
     var x = coords[1];
@@ -18,9 +20,9 @@ var Game = React.createClass ({
     }
 
     this.setState({ board: board });
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div className="game-container">
         <BoardComponent
@@ -30,6 +32,4 @@ var Game = React.createClass ({
       </div>
     )
   }
-});
-
-module.exports = Game;
+}
