@@ -7,7 +7,6 @@ body {
 }
 
 .content {
-  margin-top: 20px;
 }
 
 .game-container {
@@ -67,7 +66,7 @@ body {
   color: white;
   font-weight: 900;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 50px 50px 10px 10px;
 }
 
 .scoreboard-container .top {
@@ -79,7 +78,6 @@ body {
 .scoreboard-container .top .score-container {
   padding: 10px;
 }
-
 
 .tile-container {
   width: 60px;
