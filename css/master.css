@@ -141,13 +141,13 @@ h5 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: white;
+  color: rgba(255,255,255,0.9);
 }
 
 .instructions-container h1 {
   font-family: 'Bungee Outline', cursive;
   /*color: rgba(255, 255, 255, 0.78);*/
-  color: white;
+  color: rgba(255,255,255,0.9);
   margin: 0;
   text-shadow: 0px 1px 5px black;
 }
