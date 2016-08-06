@@ -50,8 +50,10 @@ body {
 
 .tiles-container {
   width: 550px;
-  height: 590px;
+  height: 550px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
