@@ -4,6 +4,12 @@ body {
   background: -o-radial-gradient(circle, #00ffb1, #8ef3e9, #764f77); /* Opera 11.6 to 12.0 */
   background: -moz-radial-gradient(circle, #00ffb1, #8ef3e9, #764f77); /* Firefox 3.6 to 15 */
   background: radial-gradient(circle, #1b4f3f, #608b86, #e1fff1);
+
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;
+  cursor: default;
 }
 
 .content {
@@ -16,12 +22,19 @@ body {
   flex-direction: column;
 }
 
-.game-container h1 {
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.header-container h1 {
   font-family: 'Bungee Outline', cursive;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.78);
   margin: 0;
   position: relative;
-  top: 10px;
+  top: 15px;
+  text-shadow: 0px 1px 5px black;
 }
 
 .board-container {
@@ -59,7 +72,7 @@ body {
   align-items: center;
   flex-direction: column;
   border: 1px solid rgba(255, 255, 255, 0.75);
-  margin: 20px 0px 15px 0px;
+  margin: 20px 0px 10px 0px;
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0px 0px 10px rgba(94, 94, 94, 0.68);
   font-family: 'Bungee Hairline', cursive;
@@ -67,6 +80,7 @@ body {
   font-weight: 900;
   padding: 5px;
   border-radius: 50px 50px 10px 10px;
+  text-shadow: 0px 0px 5px black;
 }
 
 .scoreboard-container .top {
@@ -79,74 +93,92 @@ body {
   padding: 10px;
 }
 
-.tile-container {
-  width: 60px;
-  height: 60px;
-  margin: 3px;
+.how-container {
+  font-family: 'Bungee Hairline', cursive;
+  font-weight: 900;
+  font-size: 20px;
+  color: white;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
 }
 
-.open-tile {
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
-  border: 1px solid #fff;
-  background: rgba(255, 255, 255, 0.17);
-  width: 60px;
-  height: 60px;
-
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
+.how-container h5 {
+  cursor: pointer;
 }
 
-.null-tile {
-  width: 62px;
-  height: 62px;
-  border-radius: 22px;
+h5 {
   margin: 0 auto;
-
-  -webkit-transition: all 2.0s ease-out;
-  -moz-transition: all 2.0s ease-out;
-  -ms-transition: all 2.0s ease-out;
-  -o-transition: all 2.0s ease-out;
-}
-
-.red-tile {
+  text-shadow: 0px 0px 5px black;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 5px 5px 26px 25px;
+  padding: 5px 5px 9px 6px;
+  background: rgba(255, 255, 255, 0.12);
+  text-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 10px rgba(94, 94, 94, 0.68);
+  width: 50px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  border: 0px #fff;
-
-  -webkit-transition: all 2.0s ease-in;
-  -moz-transition: all 2.0s ease-in;
-  -ms-transition: all 2.0s ease-in;
-  -o-transition: all 2.0s ease-in;
 }
 
-.blue-tile {
+.current-player-container {
+  font-family: 'Bungee Hairline', cursive;
+  font-weight: 900;
+  font-size: 20px;
+  color: white;
   display: flex;
-  align-items: center;
   justify-content: center;
-  border: 0px #fff;
-
-  -webkit-transition: all 2.0s ease-in;
-  -moz-transition: all 2.0s ease-in;
-  -ms-transition: all 2.0s ease-in;
-  -o-transition: all 2.0s ease-in;
+  align-items: center;
+  padding-bottom: 5px;
 }
 
-.glow-tile {
-  border-radius: 8px;
-  border: 1px solid #fff;
-  background: rgba(46, 46, 46, 0.39);
-  width: 60px;
-  height: 60px;
+/* INSTRUCTIONS MODAL */
+.instructions-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
+.instructions-container h1 {
+  font-family: 'Bungee Outline', cursive;
+  /*color: rgba(255, 255, 255, 0.78);*/
+  color black;
+  margin: 0;
+  text-shadow: 0px 1px 5px black;
+}
+
+.instructions-container .header {
+  font-family: 'Bungee Hairline', cursive;
+  font-weight: 900;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.instructions-container  .content {
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.instructions-container .content .rule {
+  padding: 6px 0px;
+}
+
+.instructions-container .footer {
+  font-family: 'Bungee Hairline', cursive;
+  font-weight: 900;
+  font-size: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.62);
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.54);
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all ease 0.5s;
+}
+
+.instructions-container .footer:hover {
+  box-shadow: none;
 }

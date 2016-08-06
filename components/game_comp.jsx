@@ -31,7 +31,6 @@ export default class Game extends React.Component {
   render () {
     return (
       <div className="game-container">
-        <h1>TETRAGON</h1>
         <BoardComponent
           board={this.state.board}
           updateBoard={this.updateBoard}
