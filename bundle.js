@@ -56,7 +56,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _game_comp = __webpack_require__(175);
+	var _game_comp = __webpack_require__(195);
 	
 	var _game_comp2 = _interopRequireDefault(_game_comp);
 	
@@ -21475,7 +21475,27 @@
 	module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ },
-/* 175 */
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21490,11 +21510,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _board = __webpack_require__(176);
+	var _board = __webpack_require__(196);
 	
 	var _board2 = _interopRequireDefault(_board);
 	
-	var _board_comp = __webpack_require__(179);
+	var _board_comp = __webpack_require__(199);
 	
 	var _board_comp2 = _interopRequireDefault(_board_comp);
 	
@@ -21564,7 +21584,7 @@
 	exports.default = Game;
 
 /***/ },
-/* 176 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21575,11 +21595,11 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _player = __webpack_require__(177);
+	var _player = __webpack_require__(197);
 	
 	var _player2 = _interopRequireDefault(_player);
 	
-	var _grid_shapes = __webpack_require__(178);
+	var _grid_shapes = __webpack_require__(198);
 	
 	var _grid_shapes2 = _interopRequireDefault(_grid_shapes);
 	
@@ -21870,7 +21890,7 @@
 	exports.default = Board;
 
 /***/ },
-/* 177 */
+/* 197 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21892,7 +21912,7 @@
 	exports.default = Player;
 
 /***/ },
-/* 178 */
+/* 198 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21904,7 +21924,7 @@
 	};
 
 /***/ },
-/* 179 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21919,15 +21939,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _tile_comp = __webpack_require__(180);
+	var _tile_comp = __webpack_require__(202);
 	
 	var _tile_comp2 = _interopRequireDefault(_tile_comp);
 	
-	var _game_message_comp = __webpack_require__(182);
+	var _game_message_comp = __webpack_require__(203);
 	
 	var _game_message_comp2 = _interopRequireDefault(_game_message_comp);
 	
-	var _scoreboard_comp = __webpack_require__(181);
+	var _scoreboard_comp = __webpack_require__(204);
 	
 	var _scoreboard_comp2 = _interopRequireDefault(_scoreboard_comp);
 	
@@ -22001,7 +22021,9 @@
 	exports.default = Board;
 
 /***/ },
-/* 180 */
+/* 200 */,
+/* 201 */,
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22090,7 +22112,56 @@
 	exports.default = Tile;
 
 /***/ },
-/* 181 */
+/* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var GameMessage = function (_React$Component) {
+	  _inherits(GameMessage, _React$Component);
+	
+	  function GameMessage(props) {
+	    _classCallCheck(this, GameMessage);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(GameMessage).call(this, props));
+	  }
+	
+	  _createClass(GameMessage, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "game-message-container" },
+	        this.props.message
+	      );
+	    }
+	  }]);
+	
+	  return GameMessage;
+	}(_react2.default.Component);
+	
+	exports.default = GameMessage;
+
+/***/ },
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22157,55 +22228,6 @@
 	}(_react2.default.Component);
 	
 	exports.default = ScoreBoard;
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var GameMessage = function (_React$Component) {
-	  _inherits(GameMessage, _React$Component);
-	
-	  function GameMessage(props) {
-	    _classCallCheck(this, GameMessage);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(GameMessage).call(this, props));
-	  }
-	
-	  _createClass(GameMessage, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "game-message-container" },
-	        this.props.message
-	      );
-	    }
-	  }]);
-	
-	  return GameMessage;
-	}(_react2.default.Component);
-	
-	exports.default = GameMessage;
 
 /***/ }
 /******/ ]);
