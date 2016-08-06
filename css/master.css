@@ -187,9 +187,10 @@ h5 {
   margin: 10px;
   cursor: pointer;
   color: black;
-  transition: all ease 0.5s;
+  transition: all ease 0.6s;
 }
 
 .instructions-container .footer:hover {
   box-shadow: none;
+  background: rgba(255, 255, 255, 0.75);
 }
