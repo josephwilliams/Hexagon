@@ -23518,11 +23518,6 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'game-container' },
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'TETRAGON'
-	        ),
 	        _react2.default.createElement(_board_comp2.default, {
 	          board: this.state.board,
 	          updateBoard: this.updateBoard
@@ -24018,6 +24013,15 @@
 	        this.modalNode(),
 	        _react2.default.createElement(
 	          'div',
+	          { className: 'header-container' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'TETRAGON'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
 	          { className: 'current-player-container' },
 	          _react2.default.createElement(
 	            'h5',
@@ -24064,15 +24068,17 @@
 	module.exports = {
 	  content: {
 	    overflow: 'visible',
-	    top: '38%',
+	    top: '42%',
 	    left: '50%',
 	    right: 'auto',
 	    bottom: 'auto',
 	    marginRight: '-50%',
 	    transform: 'translate(-50%, -50%)',
 	    opacity: '0',
-	    animation: 'appear 0.3s ease-out',
-	    boxShadow: '0 4px 8px 0 rgba(255, 255, 255, 0.7)'
+	    width: '250px',
+	    transition: 'opacity 1.0s ease-out',
+	    background: 'rgba(255, 255, 255, 0.67)',
+	    boxShadow: '0 0px 8px 0 rgba(255, 255, 255, 0.7)'
 	  },
 	  overlay: {
 	    zIndex: 101,
@@ -24081,7 +24087,7 @@
 	    left: 0,
 	    right: 0,
 	    bottom: 0,
-	    backgroundColor: 'rgba(255, 255, 255, 0.75)'
+	    backgroundColor: 'rgba(148, 148, 148, 0.74902)'
 	  }
 	};
 
@@ -24130,9 +24136,16 @@
 	  }, {
 	    key: "render",
 	    value: function render() {
+	      var _this3 = this;
+	
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "instructions-container" },
+	        _react2.default.createElement(
+	          "h1",
+	          null,
+	          "TETRAGON"
+	        ),
 	        _react2.default.createElement(
 	          "div",
 	          { className: "header" },
@@ -24144,23 +24157,35 @@
 	          _react2.default.createElement(
 	            "div",
 	            { className: "rule" },
-	            "1. do this"
+	            "1. Click the piece you want to move."
 	          ),
 	          _react2.default.createElement(
 	            "div",
 	            { className: "rule" },
-	            "2. do that"
+	            "2. Click where you want to move your piece."
 	          ),
 	          _react2.default.createElement(
 	            "div",
 	            { className: "rule" },
-	            "3. do other things"
+	            "* You can 'Jump' two spaces, leaving your original space unmarked, or 'Slide' one space, keeping your original spot."
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "rule" },
+	            "** After you jump or slide your gem, all adjacent opponent's gems will change to your color."
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "rule" },
+	            "*** The dock above the game board tracks game actions and current player."
 	          )
 	        ),
 	        _react2.default.createElement(
 	          "div",
-	          { className: "footer" },
-	          "got it!"
+	          { className: "footer", onClick: function onClick() {
+	              return _this3.props.toggleModal();
+	            } },
+	          "let's play!"
 	        )
 	      );
 	    }

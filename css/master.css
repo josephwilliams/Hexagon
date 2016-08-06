@@ -22,7 +22,13 @@ body {
   flex-direction: column;
 }
 
-.game-container h1 {
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.header-container h1 {
   font-family: 'Bungee Outline', cursive;
   color: rgba(255, 255, 255, 0.78);
   margin: 0;
@@ -125,4 +131,54 @@ h5 {
   justify-content: center;
   align-items: center;
   padding-bottom: 5px;
+}
+
+/* INSTRUCTIONS MODAL */
+.instructions-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.instructions-container h1 {
+  font-family: 'Bungee Outline', cursive;
+  /*color: rgba(255, 255, 255, 0.78);*/
+  color black;
+  margin: 0;
+  text-shadow: 0px 1px 5px black;
+}
+
+.instructions-container .header {
+  font-family: 'Bungee Hairline', cursive;
+  font-weight: 900;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.instructions-container  .content {
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.instructions-container .content .rule {
+  padding: 6px 0px;
+}
+
+.instructions-container .footer {
+  font-family: 'Bungee Hairline', cursive;
+  font-weight: 900;
+  font-size: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.62);
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.54);
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all ease 0.5s;
+}
+
+.instructions-container .footer:hover {
+  box-shadow: none;
 }

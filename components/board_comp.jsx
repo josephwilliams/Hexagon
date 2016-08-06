@@ -81,6 +81,9 @@ export default class Board extends React.Component {
     return (
       <div className="board-container">
         {this.modalNode()}
+        <div className="header-container">
+          <h1>TETRAGON</h1>
+        </div>
         <div className="current-player-container">
           <h5>
             {this.whosTurn()}

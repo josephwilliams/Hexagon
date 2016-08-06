@@ -1,15 +1,17 @@
 module.exports = {
   content : {
     overflow              : 'visible',
-    top                   : '38%',
+    top                   : '42%',
     left                  : '50%',
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     opacity               : '0',
-    animation             : 'appear 0.3s ease-out',
-    boxShadow             : '0 4px 8px 0 rgba(255, 255, 255, 0.7)'
+    width                 : '250px',
+    transition            : 'opacity 1.0s ease-out',
+    background            : 'rgba(255, 255, 255, 0.67)',
+    boxShadow             : '0 0px 8px 0 rgba(255, 255, 255, 0.7)'
   },
   overlay: {
     zIndex            : 101,
@@ -18,6 +20,6 @@ module.exports = {
     left              : 0,
     right             : 0,
     bottom            : 0,
-    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
+    backgroundColor   : 'rgba(148, 148, 148, 0.74902)'
   }
 };
