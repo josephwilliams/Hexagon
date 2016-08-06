@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import ModalStyle from './help_modal_style';
 import Instructions from './instructions_comp';
 import Tile from './tile_comp';
-import GameMessage from './game_message_comp';
 import Scoreboard from './scoreboard_comp';
 
 export default class Board extends React.Component {

@@ -1,7 +1,7 @@
 module.exports = {
   content : {
     overflow              : 'visible',
-    top                   : '42%',
+    top                   : '48%',
     left                  : '50%',
     right                 : 'auto',
     bottom                : 'auto',
@@ -10,7 +10,7 @@ module.exports = {
     opacity               : '0',
     width                 : '250px',
     transition            : 'opacity 1.0s ease-out',
-    background            : 'rgba(255, 255, 255, 0.67)',
+    background            : 'rgba(73, 73, 73, 0.76)',
     boxShadow             : '0 0px 8px 0 rgba(255, 255, 255, 0.7)'
   },
   overlay: {
@@ -20,6 +20,6 @@ module.exports = {
     left              : 0,
     right             : 0,
     bottom            : 0,
-    backgroundColor   : 'rgba(148, 148, 148, 0.74902)'
+    backgroundColor   : 'rgba(148, 148, 148, 0.85)'
   }
 };

@@ -139,12 +139,13 @@ h5 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  color: white;
 }
 
 .instructions-container h1 {
   font-family: 'Bungee Outline', cursive;
   /*color: rgba(255, 255, 255, 0.78);*/
-  color black;
+  color: white;
   margin: 0;
   text-shadow: 0px 1px 5px black;
 }
@@ -163,6 +164,13 @@ h5 {
 
 .instructions-container .content .rule {
   padding: 6px 0px;
+  display: flex;
+}
+
+.instructions-container .content .example {
+  padding: 6px 0px;
+  display: flex;
+  justify-content: space-around;;
 }
 
 .instructions-container .footer {
@@ -173,9 +181,10 @@ h5 {
   padding: 5px 8px;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.56);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.54);
-  margin-top: 10px;
+  box-shadow: 0px 0px 10px rgba(255, 244, 244, 0.54);
+  margin: 10px;
   cursor: pointer;
+  color: black;
   transition: all ease 0.5s;
 }
 

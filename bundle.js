@@ -23903,10 +23903,6 @@
 	
 	var _tile_comp2 = _interopRequireDefault(_tile_comp);
 	
-	var _game_message_comp = __webpack_require__(203);
-	
-	var _game_message_comp2 = _interopRequireDefault(_game_message_comp);
-	
 	var _scoreboard_comp = __webpack_require__(204);
 	
 	var _scoreboard_comp2 = _interopRequireDefault(_scoreboard_comp);
@@ -24068,7 +24064,7 @@
 	module.exports = {
 	  content: {
 	    overflow: 'visible',
-	    top: '42%',
+	    top: '48%',
 	    left: '50%',
 	    right: 'auto',
 	    bottom: 'auto',
@@ -24077,7 +24073,7 @@
 	    opacity: '0',
 	    width: '250px',
 	    transition: 'opacity 1.0s ease-out',
-	    background: 'rgba(255, 255, 255, 0.67)',
+	    background: 'rgba(73, 73, 73, 0.76)',
 	    boxShadow: '0 0px 8px 0 rgba(255, 255, 255, 0.7)'
 	  },
 	  overlay: {
@@ -24087,7 +24083,7 @@
 	    left: 0,
 	    right: 0,
 	    bottom: 0,
-	    backgroundColor: 'rgba(148, 148, 148, 0.74902)'
+	    backgroundColor: 'rgba(148, 148, 148, 0.85)'
 	  }
 	};
 
@@ -24161,8 +24157,63 @@
 	          ),
 	          _react2.default.createElement(
 	            "div",
+	            { className: "example" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "current-player-container" },
+	              _react2.default.createElement(
+	                "h5",
+	                { style: { textShadow: "0px 0px 5px #ff0707" } },
+	                "red"
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "tile-container" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "red-tile" },
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "gem-red" },
+	                  _react2.default.createElement("div", { className: "shadow" })
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "current-player-container" },
+	              _react2.default.createElement(
+	                "h5",
+	                { style: { textShadow: "0px 0px 5px #07e2ff" } },
+	                "blue"
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "tile-container" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "blue-tile" },
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "gem-blue" },
+	                  _react2.default.createElement("div", { className: "shadow" })
+	                )
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
 	            { className: "rule" },
 	            "2. Click where you want to move your piece."
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "example" },
+	            _react2.default.createElement("div", { className: "open-tile" }),
+	            _react2.default.createElement("div", { className: "open-tile" }),
+	            _react2.default.createElement("div", { className: "open-tile" })
 	          ),
 	          _react2.default.createElement(
 	            "div",
@@ -24176,8 +24227,8 @@
 	          ),
 	          _react2.default.createElement(
 	            "div",
-	            { className: "rule" },
-	            "*** The dock above the game board tracks game actions and current player."
+	            { className: "example" },
+	            "When there are no remaining moves, the winner is determined by gem count."
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -24299,56 +24350,7 @@
 	exports.default = Tile;
 
 /***/ },
-/* 203 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// ending up merging this into the ScoreBoard component
-	var GameMessage = function (_React$Component) {
-	  _inherits(GameMessage, _React$Component);
-	
-	  function GameMessage(props) {
-	    _classCallCheck(this, GameMessage);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(GameMessage).call(this, props));
-	  }
-	
-	  _createClass(GameMessage, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "game-message-container" },
-	        this.props.message
-	      );
-	    }
-	  }]);
-	
-	  return GameMessage;
-	}(_react2.default.Component);
-	
-	exports.default = GameMessage;
-
-/***/ },
+/* 203 */,
 /* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
