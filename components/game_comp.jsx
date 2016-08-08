@@ -15,14 +15,12 @@ export default class Game extends React.Component {
     var x = coords[1];
 
     board.scoreboard();
-    if (!board.isOver()){
-      if (board.currentMove === 1){
-        board.considerFirstMove(coords);
-        this.setState({ board: board });
-      } else if (board.currentMove === 2){
-        board.considerSecondMove(coords);
-        this.setState({ board: board });
-      }
+    if (board.currentMove === 1){
+      board.considerFirstMove(coords);
+      this.setState({ board: board });
+    } else if (board.currentMove === 2){
+      board.considerSecondMove(coords);
+      this.setState({ board: board });
     }
 
     this.setState({ board: board });

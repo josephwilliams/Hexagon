@@ -23467,7 +23467,7 @@
 	
 	var _board2 = _interopRequireDefault(_board);
 	
-	var _board_comp = __webpack_require__(199);
+	var _board_comp = __webpack_require__(197);
 	
 	var _board_comp2 = _interopRequireDefault(_board_comp);
 	
@@ -23500,14 +23500,12 @@
 	      var x = coords[1];
 	
 	      board.scoreboard();
-	      if (!board.isOver()) {
-	        if (board.currentMove === 1) {
-	          board.considerFirstMove(coords);
-	          this.setState({ board: board });
-	        } else if (board.currentMove === 2) {
-	          board.considerSecondMove(coords);
-	          this.setState({ board: board });
-	        }
+	      if (board.currentMove === 1) {
+	        board.considerFirstMove(coords);
+	        this.setState({ board: board });
+	      } else if (board.currentMove === 2) {
+	        board.considerSecondMove(coords);
+	        this.setState({ board: board });
 	      }
 	
 	      this.setState({ board: board });
@@ -23543,11 +23541,11 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _player = __webpack_require__(197);
+	var _player = __webpack_require__(202);
 	
 	var _player2 = _interopRequireDefault(_player);
 	
-	var _grid_shapes = __webpack_require__(198);
+	var _grid_shapes = __webpack_require__(203);
 	
 	var _grid_shapes2 = _interopRequireDefault(_grid_shapes);
 	
@@ -23582,17 +23580,61 @@
 	    value: function populateGrid() {
 	      // randomly selects number between 1-3
 	      var gridKey = Math.floor(Math.random() * (4 - 1)) + 1;
-	      this.grid = _grid_shapes2.default[gridKey];
+	      this.grid = _grid_shapes2.default[4];
 	    }
 	  }, {
 	    key: 'persistGame',
 	    value: function persistGame() {
 	      this.scoreboard();
-	      if (!this.isOver()) {
-	        this.switchPlayers();
-	      } else {
+	      this.switchPlayers();
+	      if (!this.anyAvailableMove()) {
+	        this.fillRestofBoard();
+	        this.scoreboard();
 	        this.endGame();
 	      }
+	    }
+	  }, {
+	    key: 'anyAvailableMove',
+	    value: function anyAvailableMove() {
+	      var _this = this;
+	
+	      var nonCurrentNum = this.currentPlayer === this.player1 ? 2 : 1;
+	      var currentNum = this.currentPlayer.num;
+	      var liveTiles = 0;
+	      this.grid.forEach(function (arr, idx1) {
+	        arr.forEach(function (tile, idx2) {
+	          var gridTile = _this.grid[idx1][idx2];
+	          if (gridTile === currentNum) {
+	            var availableMove = false;
+	            _this.moveDeltas.forEach(function (delta) {
+	              var y = delta[0] + idx1;
+	              var x = delta[1] + idx2;
+	              if (_this.grid[y] !== undefined && _this.grid[y][x] === false || _this.grid[y] !== undefined && _this.grid[y][x] === true) {
+	                availableMove = true;
+	              }
+	            });
+	            if (availableMove) {
+	              liveTiles++;
+	            }
+	          }
+	        });
+	      });
+	
+	      var anyAvailable = liveTiles > 0 ? true : false;
+	      return anyAvailable;
+	    }
+	  }, {
+	    key: 'fillRestofBoard',
+	    value: function fillRestofBoard() {
+	      var _this2 = this;
+	
+	      var nonCurrentNum = this.currentPlayer === this.player1 ? 2 : 1;
+	      this.grid.map(function (arr, idx1) {
+	        arr.map(function (tile, idx2) {
+	          var gridTile = _this2.grid[idx1][idx2];
+	          if (_this2.grid[idx1][idx2] === false) _this2.grid[idx1][idx2] = nonCurrentNum;
+	        });
+	      });
 	    }
 	
 	    // #considerMove considers this.currentMove (1 or 2);
@@ -23702,7 +23744,7 @@
 	  }, {
 	    key: 'updateGridFirstSelect',
 	    value: function updateGridFirstSelect(coords) {
-	      var _this = this;
+	      var _this3 = this;
 	
 	      var x = coords[1];
 	      var y = coords[0];
@@ -23713,23 +23755,23 @@
 	        var tempX = delta[1] + x;
 	        var tempY = delta[0] + y;
 	
-	        if (_this.grid[tempY] == null || _this.grid[tempY][tempX] == null) {
+	        if (_this3.grid[tempY] == null || _this3.grid[tempY][tempX] == null) {
 	          return;
-	        } else if (_this.grid[tempY][tempX] === false) {
-	          _this.grid[tempY][tempX] = true;
-	          _this.recentlyAssessed.push([tempY, tempX]);
+	        } else if (_this3.grid[tempY][tempX] === false) {
+	          _this3.grid[tempY][tempX] = true;
+	          _this3.recentlyAssessed.push([tempY, tempX]);
 	        }
 	      });
 	    }
 	  }, {
 	    key: 'resolveBoard',
 	    value: function resolveBoard() {
-	      var _this2 = this;
+	      var _this4 = this;
 	
 	      this.grid.forEach(function (arr, y) {
 	        arr.map(function (tile, x) {
-	          if (_this2.grid[y][x] === true) {
-	            _this2.grid[y][x] = false;
+	          if (_this4.grid[y][x] === true) {
+	            _this4.grid[y][x] = false;
 	          }
 	        });
 	      });
@@ -23761,7 +23803,7 @@
 	  }, {
 	    key: 'assessOffensiveMove',
 	    value: function assessOffensiveMove(coords) {
-	      var _this3 = this;
+	      var _this5 = this;
 	
 	      var x = coords[1];
 	      var y = coords[0];
@@ -23770,11 +23812,11 @@
 	      this.deltas.forEach(function (delta) {
 	        var tempX = delta[1] + x;
 	        var tempY = delta[0] + y;
-	        var otherPlayer = _this3.currentPlayer === _this3.player1 ? _this3.player2 : _this3.player1;
-	        if (_this3.grid[tempY] == null) {
+	        var otherPlayer = _this5.currentPlayer === _this5.player1 ? _this5.player2 : _this5.player1;
+	        if (_this5.grid[tempY] == null) {
 	          return;
-	        } else if (_this3.grid[tempY][tempX] === otherPlayer.num) {
-	          _this3.grid[tempY][tempX] = _this3.currentPlayer.num;
+	        } else if (_this5.grid[tempY][tempX] === otherPlayer.num) {
+	          _this5.grid[tempY][tempX] = _this5.currentPlayer.num;
 	        }
 	      });
 	    }
@@ -23807,8 +23849,9 @@
 	  }, {
 	    key: 'endGame',
 	    value: function endGame() {
-	      this.message = "game over!";
+	      this.switchPlayers();
 	      this.winner = this.currentPlayer;
+	      this.message = "game over! " + this.winner.color + " wins!";
 	      this.gameState = false;
 	    }
 	  }, {
@@ -23839,40 +23882,6 @@
 
 /***/ },
 /* 197 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Player = function Player(name, num, color) {
-	  _classCallCheck(this, Player);
-	
-	  this.name = name;
-	  this.num = num;
-	  this.color = color;
-	};
-	
-	exports.default = Player;
-
-/***/ },
-/* 198 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	module.exports = {
-	  1: [[2, false, false, null, null, false, false, 1], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [1, false, false, null, null, false, false, 2]],
-	  2: [[1, false, null, false, false, false, false, 2], [false, false, false, false, false, false, null, false], [null, false, false, null, false, false, false, false], [null, false, false, false, false, null, false, false], [false, false, null, false, false, false, false, null], [false, false, false, false, null, false, false, null], [false, null, false, false, false, false, false, false], [2, false, false, false, false, null, false, 1]],
-	  3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]]
-	};
-
-/***/ },
-/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23891,19 +23900,19 @@
 	
 	var _reactModal2 = _interopRequireDefault(_reactModal);
 	
-	var _help_modal_style = __webpack_require__(200);
+	var _help_modal_style = __webpack_require__(198);
 	
 	var _help_modal_style2 = _interopRequireDefault(_help_modal_style);
 	
-	var _instructions_comp = __webpack_require__(201);
+	var _instructions_comp = __webpack_require__(199);
 	
 	var _instructions_comp2 = _interopRequireDefault(_instructions_comp);
 	
-	var _tile_comp = __webpack_require__(202);
+	var _tile_comp = __webpack_require__(200);
 	
 	var _tile_comp2 = _interopRequireDefault(_tile_comp);
 	
-	var _scoreboard_comp = __webpack_require__(204);
+	var _scoreboard_comp = __webpack_require__(201);
 	
 	var _scoreboard_comp2 = _interopRequireDefault(_scoreboard_comp);
 	
@@ -24056,7 +24065,7 @@
 	exports.default = Board;
 
 /***/ },
-/* 200 */
+/* 198 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24088,7 +24097,7 @@
 	};
 
 /***/ },
-/* 201 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24248,7 +24257,7 @@
 	exports.default = Instructions;
 
 /***/ },
-/* 202 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24350,8 +24359,7 @@
 	exports.default = Tile;
 
 /***/ },
-/* 203 */,
-/* 204 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24418,6 +24426,42 @@
 	}(_react2.default.Component);
 	
 	exports.default = ScoreBoard;
+
+/***/ },
+/* 202 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Player = function Player(name, num, color) {
+	  _classCallCheck(this, Player);
+	
+	  this.name = name;
+	  this.num = num;
+	  this.color = color;
+	};
+	
+	exports.default = Player;
+
+/***/ },
+/* 203 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	module.exports = {
+	  1: [[2, false, false, null, null, false, false, 1], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [1, false, false, null, null, false, false, 2]],
+	  2: [[1, false, null, false, false, false, false, 2], [false, false, false, false, false, false, null, false], [null, false, false, null, false, false, false, false], [null, false, false, false, false, null, false, false], [false, false, null, false, false, false, false, null], [false, false, false, false, null, false, false, null], [false, null, false, false, false, false, false, false], [2, false, false, false, false, null, false, 1]],
+	  3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]],
+	
+	  4: [[1, 2, 2, null, 2, 2, 2, 2], [2, 2, 2, 2, null, false, false, 2], [2, 2, null, 2, 2, null, 2, 2], [null, 2, 2, null, 2, 2, null, 2], [2, null, 2, 2, null, 2, 2, null], [2, 2, null, 2, 2, null, 2, 2], [2, 2, 2, null, 2, 2, 1, 1], [2, false, 1, 1, 1, false, false, 1]]
+	};
 
 /***/ }
 /******/ ]);

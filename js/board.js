@@ -26,16 +26,56 @@ export default class Board {
   populateGrid () {
     // randomly selects number between 1-3
     var gridKey = Math.floor(Math.random() * (4 - 1)) + 1;
-    this.grid = GridShapes[gridKey];
+    this.grid = GridShapes[4];
   }
 
   persistGame () {
     this.scoreboard();
-    if (!this.isOver()){
-      this.switchPlayers();
-    } else {
+    this.switchPlayers();
+    if (!this.anyAvailableMove()){
+      this.fillRestofBoard();
+      this.scoreboard();
       this.endGame();
     }
+  }
+
+  anyAvailableMove () {
+    var nonCurrentNum = this.currentPlayer === this.player1 ? 2 : 1;
+    var currentNum = this.currentPlayer.num;
+    var liveTiles = 0;
+    this.grid.forEach((arr, idx1) => {
+      arr.forEach((tile, idx2) => {
+        var gridTile = this.grid[idx1][idx2];
+        if (gridTile === currentNum) {
+          var availableMove = false;
+          this.moveDeltas.forEach(delta => {
+            let y = delta[0] + idx1;
+            let x = delta[1] + idx2;
+            if (this.grid[y] !== undefined && this.grid[y][x] === false ||
+                this.grid[y] !== undefined && this.grid[y][x] === true){
+              availableMove = true;
+            }
+          });
+          if (availableMove){
+            liveTiles++;
+          }
+        }
+      });
+    });
+
+    let anyAvailable = liveTiles > 0 ? true : false;
+    return anyAvailable;
+  }
+
+  fillRestofBoard () {
+    var nonCurrentNum = this.currentPlayer === this.player1 ? 2 : 1;
+    this.grid.map((arr, idx1) => {
+      arr.map((tile, idx2) => {
+        var gridTile = this.grid[idx1][idx2];
+        if (this.grid[idx1][idx2] === false)
+          this.grid[idx1][idx2] = nonCurrentNum;
+      });
+    });
   }
 
   // #considerMove considers this.currentMove (1 or 2);
@@ -227,8 +267,9 @@ export default class Board {
   }
 
   endGame () {
-    this.message = "game over!";
+    this.switchPlayers();
     this.winner = this.currentPlayer;
+    this.message = "game over! " + this.winner.color + " wins!";
     this.gameState = false;
   }
 
