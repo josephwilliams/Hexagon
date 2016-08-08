@@ -1,15 +1,23 @@
+html {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
 body {
   background: red; /* For browsers that do not support gradients */
   background: -webkit-radial-gradient(circle, #00ffb1, #8ef3e9, #764f77); /* Safari */
   background: -o-radial-gradient(circle, #00ffb1, #8ef3e9, #764f77); /* Opera 11.6 to 12.0 */
   background: -moz-radial-gradient(circle, #00ffb1, #8ef3e9, #764f77); /* Firefox 3.6 to 15 */
   background: radial-gradient(circle, #1b4f3f, #608b86, #e1fff1);
-
   -webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */
   -ms-user-select: none;      /* IE 10+ */
   user-select: none;
   cursor: default;
+  position: relative;
+  bottom: 30px;
 }
 
 .content {
