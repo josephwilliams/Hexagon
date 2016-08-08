@@ -14,7 +14,7 @@ export default class Instructions extends React.Component {
         </div>
         <div className="content">
           <div className="rule">
-            1. Click the piece you want to move.
+            1. Select the gem you want to move.
           </div>
           <div className="example">
             <div className="current-player-container">
@@ -43,7 +43,7 @@ export default class Instructions extends React.Component {
             </div>
           </div>
           <div className="rule">
-            2. Click where you want to move your piece.
+            2. Select where you want to move your gem.
           </div>
           <div className="example">
             <div className="open-tile"></div>
@@ -51,13 +51,13 @@ export default class Instructions extends React.Component {
             <div className="open-tile"></div>
           </div>
           <div className="rule">
-            * You can 'Jump' two spaces, leaving your original space unmarked, or 'Slide' one space, keeping your original spot.
+            You can 'Jump' two spaces, leaving your original space unmarked, or 'Slide' one space, keeping your original gem.
           </div>
           <div className="rule">
-            ** After you jump or slide your gem, all adjacent opponent's gems will change to your color.
+             After moving your gem, all adjacent gems will change to your color.
           </div>
           <div className="example">
-            When there are no remaining moves, the winner is determined by gem count.
+            When there are no remaining moves, the player with the most gems wins.
           </div>
         </div>
         <div className="footer" onClick={() => this.props.toggleModal()}>

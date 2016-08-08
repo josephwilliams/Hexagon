@@ -26,7 +26,7 @@ export default class Board {
   populateGrid () {
     // randomly selects number between 1-3
     var gridKey = Math.floor(Math.random() * (4 - 1)) + 1;
-    this.grid = GridShapes[4];
+    this.grid = GridShapes[gridKey];
   }
 
   persistGame () {

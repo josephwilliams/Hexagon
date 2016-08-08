@@ -23580,7 +23580,7 @@
 	    value: function populateGrid() {
 	      // randomly selects number between 1-3
 	      var gridKey = Math.floor(Math.random() * (4 - 1)) + 1;
-	      this.grid = _grid_shapes2.default[4];
+	      this.grid = _grid_shapes2.default[gridKey];
 	    }
 	  }, {
 	    key: 'persistGame',
@@ -24162,7 +24162,7 @@
 	          _react2.default.createElement(
 	            "div",
 	            { className: "rule" },
-	            "1. Click the piece you want to move."
+	            "1. Select the gem you want to move."
 	          ),
 	          _react2.default.createElement(
 	            "div",
@@ -24215,7 +24215,7 @@
 	          _react2.default.createElement(
 	            "div",
 	            { className: "rule" },
-	            "2. Click where you want to move your piece."
+	            "2. Select where you want to move your gem."
 	          ),
 	          _react2.default.createElement(
 	            "div",
@@ -24227,17 +24227,17 @@
 	          _react2.default.createElement(
 	            "div",
 	            { className: "rule" },
-	            "* You can 'Jump' two spaces, leaving your original space unmarked, or 'Slide' one space, keeping your original spot."
+	            "You can 'Jump' two spaces, leaving your original space unmarked, or 'Slide' one space, keeping your original gem."
 	          ),
 	          _react2.default.createElement(
 	            "div",
 	            { className: "rule" },
-	            "** After you jump or slide your gem, all adjacent opponent's gems will change to your color."
+	            "After moving your gem, all adjacent gems will change to your color."
 	          ),
 	          _react2.default.createElement(
 	            "div",
 	            { className: "example" },
-	            "When there are no remaining moves, the winner is determined by gem count."
+	            "When there are no remaining moves, the player with the most gems wins."
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -24458,9 +24458,7 @@
 	module.exports = {
 	  1: [[2, false, false, null, null, false, false, 1], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [1, false, false, null, null, false, false, 2]],
 	  2: [[1, false, null, false, false, false, false, 2], [false, false, false, false, false, false, null, false], [null, false, false, null, false, false, false, false], [null, false, false, false, false, null, false, false], [false, false, null, false, false, false, false, null], [false, false, false, false, null, false, false, null], [false, null, false, false, false, false, false, false], [2, false, false, false, false, null, false, 1]],
-	  3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]],
-	
-	  4: [[1, 2, 2, null, 2, 2, 2, 2], [2, 2, 2, 2, null, false, false, 2], [2, 2, null, 2, 2, null, 2, 2], [null, 2, 2, null, 2, 2, null, 2], [2, null, 2, 2, null, 2, 2, null], [2, 2, null, 2, 2, null, 2, 2], [2, 2, 2, null, 2, 2, 1, 1], [2, false, 1, 1, 1, false, false, 1]]
+	  3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]]
 	};
 
 /***/ }

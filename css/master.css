@@ -108,6 +108,12 @@ body {
 
 .how-container h5 {
   cursor: pointer;
+  transition: all 1s ease-out;
+}
+
+.how-container h5:hover {
+  background: rgba(255, 255, 255, 0.33);
+  transition: all 1s ease-out;
 }
 
 h5 {
