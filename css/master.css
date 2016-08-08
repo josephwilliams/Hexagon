@@ -112,7 +112,7 @@ body {
 }
 
 .how-container h5:hover {
-  background: rgba(255, 255, 255, 0.33);
+  background: rgba(255, 255, 255, 0.32);
   transition: all 1s ease-out;
 }
 
