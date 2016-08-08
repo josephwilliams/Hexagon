@@ -108,7 +108,7 @@ body {
 
 .how-container h5 {
   cursor: pointer;
-  transition: all 1s ease-out;
+  transition: all 1.1s ease-out;
 }
 
 .how-container h5:hover {
