@@ -209,3 +209,34 @@ h5 {
   box-shadow: none;
   background: rgba(255, 255, 255, 0.75);
 }
+
+.bottom-container {
+  width: 150px;
+  height: 25px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  margin: 10px 0px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0px 0px 10px rgba(94, 94, 94, 0.68);
+  font-family: 'Bungee Hairline', cursive;
+  font-size: 18px;
+  color: white;
+  font-weight: 900;
+  padding: 5px;
+  border-radius: 10px 10px 50px 50px;
+  text-shadow: 0px 0px 5px black;
+  cursor: pointer;
+  transition: all 1s ease-out;
+}
+
+.bottom-container:hover {
+  background: rgba(255, 255, 255, 0.32);
+  transition: all 1s ease-out;
+}
+
+.bottom-container-hide {
+  display: none;
+}

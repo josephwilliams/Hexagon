@@ -4,6 +4,7 @@ import ModalStyle from './help_modal_style';
 import Instructions from './instructions_comp';
 import Tile from './tile_comp';
 import Scoreboard from './scoreboard_comp';
+import Footer from './footer_comp';
 
 export default class Board extends React.Component {
   constructor (props) {
@@ -93,14 +94,18 @@ export default class Board extends React.Component {
                     message={this.props.board.message}
                     currentPlayer={this.props.board.currentPlayer}
         />
-      <div className="how-container">
-        <h5 onClick={() => this.toggleModal()}>
-          how?
-        </h5>
-      </div>
+        <div className="how-container">
+          <h5 onClick={() => this.toggleModal()}>
+            how?
+          </h5>
+        </div>
         <div className="tiles-container">
           {this.showBoard()}
         </div>
+        <Footer
+          gameState={this.props.board.gameState}
+          gameBegun={this.props.board.gameBegun}
+        />
       </div>
     )
   }

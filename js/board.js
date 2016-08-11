@@ -10,6 +10,7 @@ export default class Board {
     this.currentMove = 1;
     this.firstSelect = null;
     this.gameState = true;
+    this.gameBegun = false;
     this.winner = null;
     this.message = "Begin! Red moves first.";
     this.redCount = 2;
@@ -228,6 +229,10 @@ export default class Board {
   }
 
   assessOffensiveMove (coords) {
+    // game begins when first good move is made
+    // 'randomize' feature disappears
+    this.gameBegun = true;
+
     var x = coords[1];
     var y = coords[0];
 

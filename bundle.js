@@ -23564,6 +23564,7 @@
 	    this.currentMove = 1;
 	    this.firstSelect = null;
 	    this.gameState = true;
+	    this.gameBegun = false;
 	    this.winner = null;
 	    this.message = "Begin! Red moves first.";
 	    this.redCount = 2;
@@ -23805,6 +23806,10 @@
 	    value: function assessOffensiveMove(coords) {
 	      var _this5 = this;
 	
+	      // game begins when first good move is made
+	      // 'randomize' feature disappears
+	      this.gameBegun = true;
+	
 	      var x = coords[1];
 	      var y = coords[0];
 	
@@ -23950,6 +23955,10 @@
 	
 	var _scoreboard_comp2 = _interopRequireDefault(_scoreboard_comp);
 	
+	var _footer_comp = __webpack_require__(204);
+	
+	var _footer_comp2 = _interopRequireDefault(_footer_comp);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24088,7 +24097,11 @@
 	          'div',
 	          { className: 'tiles-container' },
 	          this.showBoard()
-	        )
+	        ),
+	        _react2.default.createElement(_footer_comp2.default, {
+	          gameState: this.props.board.gameState,
+	          gameBegun: this.props.board.gameBegun
+	        })
 	      );
 	    }
 	  }]);
@@ -24468,6 +24481,45 @@
 	}(_react2.default.Component);
 	
 	exports.default = ScoreBoard;
+
+/***/ },
+/* 204 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Footer = function Footer(props) {
+	  var text = void 0,
+	      klass = void 0;
+	  if (props.gameBegun && !props.gameState) {
+	    klass = "bottom-container";
+	    text = "restart";
+	  } else if (props.gameBegun && props.gameState) {
+	    klass = "bottom-container-hide";
+	    text = null;
+	  } else if (!props.gameBegun && props.gameState) {
+	    klass = "bottom-container";
+	    text = "randomize";
+	  }
+	
+	  return _react2.default.createElement(
+	    "div",
+	    { className: klass },
+	    text
+	  );
+	};
+	
+	exports.default = Footer;
 
 /***/ }
 /******/ ]);
