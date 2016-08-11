@@ -23515,7 +23515,6 @@
 	    key: 'restart',
 	    value: function restart() {
 	      this.setState({ board: new _board2.default() });
-	      // debugger
 	    }
 	  }, {
 	    key: 'render',
@@ -23641,7 +23640,6 @@
 	    value: function fillRestofBoard() {
 	      var _this2 = this;
 	
-	      console.log("filling rest of board");
 	      var nonCurrentNum = this.currentPlayer === this.player1 ? 2 : 1;
 	      this.grid.map(function (arr, idx1) {
 	        arr.map(function (tile, idx2) {

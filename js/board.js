@@ -71,7 +71,6 @@ export default class Board {
   }
 
   fillRestofBoard () {
-    console.log("filling rest of board");
     var nonCurrentNum = this.currentPlayer === this.player1 ? 2 : 1;
     this.grid.map((arr, idx1) => {
       arr.map((tile, idx2) => {

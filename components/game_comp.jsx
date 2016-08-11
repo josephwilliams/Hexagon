@@ -29,7 +29,6 @@ export default class Game extends React.Component {
 
   restart () {
     this.setState({ board: new Board });
-    // debugger
   }
 
   render () {
