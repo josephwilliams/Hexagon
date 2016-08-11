@@ -23489,6 +23489,7 @@
 	
 	    _this.state = { board: new _board2.default() };
 	    _this.updateBoard = _this.updateBoard.bind(_this);
+	    _this.restart = _this.restart.bind(_this);
 	    return _this;
 	  }
 	
@@ -23511,6 +23512,12 @@
 	      this.setState({ board: board });
 	    }
 	  }, {
+	    key: 'restart',
+	    value: function restart() {
+	      console.log(this.state.board);
+	      this.setState({ board: new _board2.default() });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -23518,7 +23525,8 @@
 	        { className: 'game-container' },
 	        _react2.default.createElement(_board_comp2.default, {
 	          board: this.state.board,
-	          updateBoard: this.updateBoard
+	          updateBoard: this.updateBoard,
+	          restart: this.restart
 	        })
 	      );
 	    }
@@ -23572,7 +23580,6 @@
 	    this.deltas = [[0, 1], [0, -1], [1, 0], [1, 1], [1, -1], [-1, 0], [-1, 1], [-1, -1]];
 	    this.moveDeltas = [[0, 1], [0, -1], [1, 0], [1, 1], [1, -1], [-1, 0], [-1, 1], [-1, -1], [-1, 2], [0, 2], [1, 2], [2, 2], [2, -1], [2, 0], [2, 1], [1, 2], [-2, 1], [-2, -2], [-2, -1], [-2, 0], [-1, -2], [0, -2], [1, -2], [2, -2], [-2, 2]];
 	    this.recentlyAssessed = [];
-	
 	    this.populateGrid();
 	  }
 	
@@ -24100,7 +24107,8 @@
 	        ),
 	        _react2.default.createElement(_footer_comp2.default, {
 	          gameState: this.props.board.gameState,
-	          gameBegun: this.props.board.gameBegun
+	          gameBegun: this.props.board.gameBegun,
+	          restart: this.props.restart
 	        })
 	      );
 	    }
@@ -24514,7 +24522,9 @@
 	
 	  return _react2.default.createElement(
 	    "div",
-	    { className: klass },
+	    { className: klass, onClick: function onClick() {
+	        return props.restart();
+	      } },
 	    text
 	  );
 	};

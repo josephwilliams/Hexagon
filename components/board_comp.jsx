@@ -105,6 +105,7 @@ export default class Board extends React.Component {
         <Footer
           gameState={this.props.board.gameState}
           gameBegun={this.props.board.gameBegun}
+          restart={this.props.restart}
         />
       </div>
     )

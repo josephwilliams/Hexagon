@@ -14,7 +14,7 @@ const Footer = (props) => {
   }
 
   return (
-    <div className={klass}>
+    <div className={klass} onClick={() => props.restart()}>
       {text}
     </div>
   );

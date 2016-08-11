@@ -7,6 +7,7 @@ export default class Game extends React.Component {
     super(props);
     this.state = { board: new Board };
     this.updateBoard = this.updateBoard.bind(this);
+    this.restart = this.restart.bind(this);
   }
 
   updateBoard (coords) {
@@ -26,12 +27,18 @@ export default class Game extends React.Component {
     this.setState({ board: board });
   }
 
+  restart () {
+    console.log(this.state.board);
+    this.setState({ board: new Board });
+  }
+
   render () {
     return (
       <div className="game-container">
         <BoardComponent
           board={this.state.board}
           updateBoard={this.updateBoard}
+          restart={this.restart}
         />
       </div>
     )
