@@ -23514,8 +23514,8 @@
 	  }, {
 	    key: 'restart',
 	    value: function restart() {
-	      console.log(this.state.board);
 	      this.setState({ board: new _board2.default() });
+	      // debugger
 	    }
 	  }, {
 	    key: 'render',
@@ -23588,7 +23588,12 @@
 	    value: function populateGrid() {
 	      // randomly selects number between 1-3
 	      var gridKey = Math.floor(Math.random() * (4 - 1)) + 1;
-	      this.grid = _grid_shapes2.default[gridKey];
+	      var randGrid = _grid_shapes2.default[gridKey];
+	      // creates shallow dup of the GridShapes grid for use as this.grid
+	      var clonedGrid = randGrid.map(function (arr) {
+	        return arr.slice();
+	      });
+	      this.grid = clonedGrid;
 	    }
 	  }, {
 	    key: 'persistGame',
@@ -23636,6 +23641,7 @@
 	    value: function fillRestofBoard() {
 	      var _this2 = this;
 	
+	      console.log("filling rest of board");
 	      var nonCurrentNum = this.currentPlayer === this.player1 ? 2 : 1;
 	      this.grid.map(function (arr, idx1) {
 	        arr.map(function (tile, idx2) {

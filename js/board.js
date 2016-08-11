@@ -26,7 +26,10 @@ export default class Board {
   populateGrid () {
     // randomly selects number between 1-3
     var gridKey = Math.floor(Math.random() * (4 - 1)) + 1;
-    this.grid = GridShapes[gridKey];
+    let randGrid = GridShapes[gridKey];
+    // creates shallow dup of the GridShapes grid for use as this.grid
+    let clonedGrid = randGrid.map(arr => arr.slice());
+    this.grid = clonedGrid;
   }
 
   persistGame () {
@@ -68,6 +71,7 @@ export default class Board {
   }
 
   fillRestofBoard () {
+    console.log("filling rest of board");
     var nonCurrentNum = this.currentPlayer === this.player1 ? 2 : 1;
     this.grid.map((arr, idx1) => {
       arr.map((tile, idx2) => {
