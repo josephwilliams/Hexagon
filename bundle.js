@@ -23467,7 +23467,7 @@
 	
 	var _board2 = _interopRequireDefault(_board);
 	
-	var _board_comp = __webpack_require__(197);
+	var _board_comp = __webpack_require__(199);
 	
 	var _board_comp2 = _interopRequireDefault(_board_comp);
 	
@@ -23541,11 +23541,11 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _player = __webpack_require__(202);
+	var _player = __webpack_require__(197);
 	
 	var _player2 = _interopRequireDefault(_player);
 	
-	var _grid_shapes = __webpack_require__(203);
+	var _grid_shapes = __webpack_require__(198);
 	
 	var _grid_shapes2 = _interopRequireDefault(_grid_shapes);
 	
@@ -23882,6 +23882,40 @@
 
 /***/ },
 /* 197 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Player = function Player(name, num, color) {
+	  _classCallCheck(this, Player);
+	
+	  this.name = name;
+	  this.num = num;
+	  this.color = color;
+	};
+	
+	exports.default = Player;
+
+/***/ },
+/* 198 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	module.exports = {
+	  1: [[2, false, false, null, null, false, false, 1], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [1, false, false, null, null, false, false, 2]],
+	  2: [[1, false, null, false, false, false, false, 2], [false, false, false, false, false, false, null, false], [null, false, false, null, false, false, false, false], [null, false, false, false, false, null, false, false], [false, false, null, false, false, false, false, null], [false, false, false, false, null, false, false, null], [false, null, false, false, false, false, false, false], [2, false, false, false, false, null, false, 1]],
+	  3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]]
+	};
+
+/***/ },
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23900,19 +23934,19 @@
 	
 	var _reactModal2 = _interopRequireDefault(_reactModal);
 	
-	var _help_modal_style = __webpack_require__(198);
+	var _help_modal_style = __webpack_require__(200);
 	
 	var _help_modal_style2 = _interopRequireDefault(_help_modal_style);
 	
-	var _instructions_comp = __webpack_require__(199);
+	var _instructions_comp = __webpack_require__(201);
 	
 	var _instructions_comp2 = _interopRequireDefault(_instructions_comp);
 	
-	var _tile_comp = __webpack_require__(200);
+	var _tile_comp = __webpack_require__(202);
 	
 	var _tile_comp2 = _interopRequireDefault(_tile_comp);
 	
-	var _scoreboard_comp = __webpack_require__(201);
+	var _scoreboard_comp = __webpack_require__(203);
 	
 	var _scoreboard_comp2 = _interopRequireDefault(_scoreboard_comp);
 	
@@ -24065,7 +24099,7 @@
 	exports.default = Board;
 
 /***/ },
-/* 198 */
+/* 200 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24097,7 +24131,7 @@
 	};
 
 /***/ },
-/* 199 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24257,7 +24291,7 @@
 	exports.default = Instructions;
 
 /***/ },
-/* 200 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24359,7 +24393,7 @@
 	exports.default = Tile;
 
 /***/ },
-/* 201 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24403,13 +24437,21 @@
 	          _react2.default.createElement(
 	            "div",
 	            { className: "score-container" },
-	            "red: ",
+	            _react2.default.createElement(
+	              "div",
+	              { style: { textShadow: "rgb(255, 7, 7) 0px 0px 5px" } },
+	              "red:  "
+	            ),
 	            this.props.redCount
 	          ),
 	          _react2.default.createElement(
 	            "div",
 	            { className: "score-container" },
-	            "blue: ",
+	            _react2.default.createElement(
+	              "div",
+	              { style: { textShadow: "rgb(7, 226, 255) 0px 0px 5px" } },
+	              "blue:  "
+	            ),
 	            this.props.blueCount
 	          )
 	        ),
@@ -24426,40 +24468,6 @@
 	}(_react2.default.Component);
 	
 	exports.default = ScoreBoard;
-
-/***/ },
-/* 202 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Player = function Player(name, num, color) {
-	  _classCallCheck(this, Player);
-	
-	  this.name = name;
-	  this.num = num;
-	  this.color = color;
-	};
-	
-	exports.default = Player;
-
-/***/ },
-/* 203 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	module.exports = {
-	  1: [[2, false, false, null, null, false, false, 1], [false, false, false, false, false, false, false, false], [false, false, null, false, false, null, false, false], [false, null, false, false, false, false, null, false], [false, null, false, false, false, false, null, false], [false, false, null, false, false, null, false, false], [false, false, false, false, false, false, false, false], [1, false, false, null, null, false, false, 2]],
-	  2: [[1, false, null, false, false, false, false, 2], [false, false, false, false, false, false, null, false], [null, false, false, null, false, false, false, false], [null, false, false, false, false, null, false, false], [false, false, null, false, false, false, false, null], [false, false, false, false, null, false, false, null], [false, null, false, false, false, false, false, false], [2, false, false, false, false, null, false, 1]],
-	  3: [[1, false, false, null, false, false, false, 2], [false, false, false, false, null, false, false, false], [false, false, null, false, false, null, false, false], [null, false, false, null, false, false, null, false], [false, null, false, false, null, false, false, null], [false, false, null, false, false, null, false, false], [false, false, false, null, false, false, false, false], [2, false, false, false, null, false, false, 1]]
-	};
 
 /***/ }
 /******/ ]);

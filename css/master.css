@@ -101,6 +101,7 @@ body {
 
 .scoreboard-container .top .score-container {
   padding: 10px;
+  display: flex;
 }
 
 .how-container {

@@ -5,6 +5,4 @@ export default class Move {
     this.move = move;
     this.board = board;
   }
-
-
 }
